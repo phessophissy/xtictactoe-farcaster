@@ -1,4 +1,4 @@
-export const CONTRACT_ADDRESS = '0x18BB611274dbfBbED85Fe99a3132B0d7A6016db0'; // xTicTacToe Escrow on Base
+export const CONTRACT_ADDRESS = '0x9A85F608aA978AC8cA32aEd95Da1B12Ba3b140e6'; // xTicTacToe Escrow on Base
 export const USDC_ADDRESS = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'; // Base USDC
 
 export const ESCROW_ABI = [
