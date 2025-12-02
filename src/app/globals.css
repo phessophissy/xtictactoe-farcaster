@@ -173,3 +173,52 @@ input[type='range']::-moz-range-thumb:hover {
 ::-webkit-scrollbar-thumb:hover {
   background: #a67543;
 }
+
+/* Farcaster MiniApp optimizations */
+@media (max-width: 480px) {
+  body {
+    overflow-x: hidden;
+  }
+  
+  .min-h-screen {
+    min-height: 100vh;
+    padding: 0.5rem !important;
+  }
+  
+  .w-full.max-w-4xl {
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+  
+  .bg-gradient-to-br {
+    padding: 1rem !important;
+  }
+  
+  h1 {
+    font-size: 1.5rem !important;
+  }
+  
+  h2 {
+    font-size: 1.25rem !important;
+  }
+  
+  button {
+    padding: 0.75rem 1rem !important;
+    font-size: 0.875rem !important;
+  }
+  
+  .decorative-x,
+  .decorative-o {
+    display: none !important;
+  }
+}
+
+@media (max-height: 700px) {
+  .space-y-4 {
+    gap: 0.5rem !important;
+  }
+  
+  .p-8 {
+    padding: 1rem !important;
+  }
+}
