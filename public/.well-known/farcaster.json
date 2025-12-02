@@ -3,5 +3,15 @@
     "header": "eyJmaWQiOjQ3Mjc4MCwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweEVEMzJGMTUwNmRFMjI2YjZDQkUyMTA5QTBiMDcyMTA1QjczQ0FhOTEifQ",
     "payload": "eyJkb21haW4iOiJ4dGljdGFjdG9lLWRyYWIudmVyY2VsLmFwcCJ9",
     "signature": "z0K8e2q/gtS5dE9ePloN3ZrZv9bto6H7t1eWMBsQ8ok+sDuaKZ8Ud/EQqy3FO23+nSYLg9qguF12841HGiNEKBs="
+  },
+  "frame": {
+    "version": "next",
+    "name": "xTicTacToe",
+    "iconUrl": "https://xtictactoe-drab.vercel.app/logo.png",
+    "homeUrl": "https://xtictactoe-drab.vercel.app",
+    "imageUrl": "https://xtictactoe-drab.vercel.app/frame-image.svg",
+    "buttonTitle": "Play Now",
+    "splashImageUrl": "https://xtictactoe-drab.vercel.app/frame-image.svg",
+    "splashBackgroundColor": "#d8c0a0"
   }
 }
