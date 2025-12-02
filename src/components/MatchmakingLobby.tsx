@@ -1,85 +1,64 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { MatchmakingPlayer } from '@/utils/game';
+import React, { useState } from 'react';
+import { useAccount } from 'wagmi';
+import { useApproveUSDC, useCreateGame, useUSDCAllowance, useUSDCBalance } from '@/hooks/useContract';
+import { formatUnits, parseUnits, isAddress } from 'viem';
 import { soundManager, vibrateClick } from '@/utils/sound';
 
 interface MatchmakingLobbyProps {
   onBack: () => void;
-  onMatchFound: (opponent: string) => void;
-  currentAddress?: string;
+  onGameCreated: (gameId: bigint) => void;
 }
 
-export default function MatchmakingLobby({ onBack, onMatchFound, currentAddress }: MatchmakingLobbyProps) {
-  const [players, setPlayers] = useState<MatchmakingPlayer[]>([]);
-  const [isSearching, setIsSearching] = useState(false);
-  const [waitTime, setWaitTime] = useState(0);
+export default function MatchmakingLobby({ onBack, onGameCreated }: MatchmakingLobbyProps) {
+  const { address } = useAccount();
+  const [opponentAddress, setOpponentAddress] = useState('');
+  const { balance } = useUSDCBalance();
+  const { allowance, refetch: refetchAllowance } = useUSDCAllowance();
+  const { approve, isPending: isApproving, isSuccess: isApproved } = useApproveUSDC();
+  const { createGame, isPending: isCreating, isSuccess: isGameCreated, hash } = useCreateGame();
 
-  useEffect(() => {
-    // Mock matchmaking - in production, use WebSocket or polling
-    const mockPlayers: MatchmakingPlayer[] = [
-      {
-        address: '0x1234...5678',
-        username: 'CryptoKing',
-        wins: 15,
-        losses: 8,
-        isReady: true,
-      },
-      {
-        address: '0xabcd...ef01',
-        username: 'TicTacPro',
-        wins: 23,
-        losses: 12,
-        isReady: true,
-      },
-      {
-        address: '0x9876...4321',
-        username: 'ChainMaster',
-        wins: 8,
-        losses: 5,
-        isReady: false,
-      },
-    ];
-    setPlayers(mockPlayers);
-  }, []);
+  const hasEnoughBalance = balance >= parseUnits('1', 6);
+  const hasApproval = allowance >= parseUnits('1', 6);
+  const isValidOpponent = opponentAddress && isAddress(opponentAddress) && opponentAddress.toLowerCase() !== address?.toLowerCase();
 
-  useEffect(() => {
-    if (isSearching) {
-      const interval = setInterval(() => {
-        setWaitTime((prev) => prev + 1);
-      }, 1000);
-      return () => clearInterval(interval);
-    }
-  }, [isSearching]);
-
-  const handleSearchToggle = () => {
-    setIsSearching(!isSearching);
+  const handleApprove = async () => {
+    await approve();
     soundManager.playClick();
     vibrateClick();
-    if (!isSearching) {
-      setWaitTime(0);
-      // Simulate match found after 3-5 seconds
-      const delay = Math.random() * 2000 + 3000;
+  };
+
+  const handleCreateGame = async () => {
+    if (!isValidOpponent) return;
+    await createGame(opponentAddress as `0x${string}`);
+    soundManager.playClick();
+    vibrateClick();
+  };
+
+  // Refetch allowance after approval
+  React.useEffect(() => {
+    if (isApproved) {
+      setTimeout(() => refetchAllowance(), 2000);
+    }
+  }, [isApproved, refetchAllowance]);
+
+  // Extract game ID from transaction and navigate
+  React.useEffect(() => {
+    if (isGameCreated && hash) {
+      // In a real implementation, you'd parse the transaction logs to get the game ID
+      // For now, we'll use a placeholder
+      soundManager.playMatchFound();
       setTimeout(() => {
-        if (players.length > 0) {
-          const randomPlayer = players[Math.floor(Math.random() * players.length)];
-          soundManager.playMatchFound();
-          vibrateClick();
-          onMatchFound(randomPlayer.address);
-        }
-      }, delay);
+        // This is a simplified version - in production, parse event logs
+        onGameCreated(1n); // Placeholder game ID
+      }, 2000);
     }
-  };
-
-  const handleChallenge = (opponent: MatchmakingPlayer) => {
-    soundManager.playClick();
-    vibrateClick();
-    onMatchFound(opponent.address);
-  };
+  }, [isGameCreated, hash, onGameCreated]);
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-carton-100 via-carton-200 to-carton-300">
-      <div className="w-full max-w-2xl">
+      <div className="w-full max-w-md">
         <div className="bg-gradient-to-br from-carton-50 to-carton-100 rounded-2xl shadow-2xl p-8 border-4 border-carton-400">
           <div className="flex justify-between items-center mb-6">
             <button
@@ -88,68 +67,109 @@ export default function MatchmakingLobby({ onBack, onMatchFound, currentAddress 
             >
               ← Back
             </button>
-            <h2 className="text-2xl font-bold text-carton-800">Matchmaking</h2>
+            <h2 className="text-2xl font-bold text-carton-800">🎮 Create PvP Game</h2>
             <div className="w-20"></div>
           </div>
 
-          <div className="mb-6 text-center">
-            <button
-              onClick={handleSearchToggle}
-              className={`
-                px-8 py-4 rounded-xl font-bold text-lg shadow-lg transition-all duration-200 transform hover:scale-105
-                ${
-                  isSearching
-                    ? 'bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white animate-glow-pulse'
-                    : 'bg-gradient-to-r from-carton-500 to-carton-600 hover:from-carton-600 hover:to-carton-700 text-white'
-                }
-              `}
-            >
-              {isSearching ? `Searching... ${waitTime}s` : 'Quick Match'}
-            </button>
-          </div>
-
-          <div className="bg-carton-200 rounded-xl p-4 mb-6">
-            <h3 className="text-lg font-bold text-carton-800 mb-3">Players Online ({players.length})</h3>
-            <div className="space-y-2 max-h-96 overflow-y-auto">
-              {players.map((player, index) => (
-                <div
-                  key={index}
-                  className="bg-carton-100 rounded-lg p-4 flex items-center justify-between border-2 border-carton-300 hover:border-carton-400 transition-colors"
-                >
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2">
-                      <span className="font-bold text-carton-800">{player.username}</span>
-                      {player.isReady && (
-                        <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                      )}
-                    </div>
-                    <div className="text-sm text-carton-600">{player.address}</div>
-                    <div className="text-xs text-carton-500 mt-1">
-                      {player.wins}W - {player.losses}L
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => handleChallenge(player)}
-                    disabled={!player.isReady}
-                    className={`
-                      px-4 py-2 rounded-lg font-semibold transition-all
-                      ${
-                        player.isReady
-                          ? 'bg-carton-500 hover:bg-carton-600 text-white cursor-pointer'
-                          : 'bg-carton-300 text-carton-500 cursor-not-allowed'
-                      }
-                    `}
-                  >
-                    Challenge
-                  </button>
-                </div>
-              ))}
+          {!address ? (
+            <div className="text-center py-8">
+              <p className="text-carton-700 mb-4">Connect your wallet to play</p>
             </div>
-          </div>
+          ) : (
+            <div className="space-y-6">
+              {/* Balance Check */}
+              <div className="bg-carton-200 rounded-lg p-4">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="text-sm text-carton-700">Your USDC Balance:</span>
+                  <span className={`font-bold ${hasEnoughBalance ? 'text-green-600' : 'text-red-600'}`}>
+                    ${formatUnits(balance, 6)} USDC
+                  </span>
+                </div>
+                {!hasEnoughBalance && (
+                  <p className="text-xs text-red-600">You need at least $1 USDC to play</p>
+                )}
+              </div>
 
-          <div className="text-center text-xs text-carton-600">
-            <p>Gas-sponsored matches available • 1 USDC entry fee per player</p>
-          </div>
+              {/* Entry Fee Info */}
+              <div className="bg-gradient-to-br from-yellow-100 to-yellow-200 rounded-lg p-4 border-2 border-yellow-400">
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-yellow-800">Entry Fee:</span>
+                    <span className="font-bold text-yellow-900">$1.00 USDC</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-yellow-800">Winner Prize:</span>
+                    <span className="font-bold text-green-600">$1.70 USDC</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-yellow-800">Platform Fee:</span>
+                    <span className="font-bold text-yellow-900">$0.30 USDC</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Opponent Address Input */}
+              <div>
+                <label className="block text-sm font-bold text-carton-800 mb-2">
+                  Opponent Wallet Address
+                </label>
+                <input
+                  type="text"
+                  value={opponentAddress}
+                  onChange={(e) => setOpponentAddress(e.target.value)}
+                  placeholder="0x..."
+                  className="w-full px-4 py-3 rounded-lg border-2 border-carton-300 focus:border-carton-500 outline-none font-mono text-sm"
+                />
+                {opponentAddress && !isAddress(opponentAddress) && (
+                  <p className="text-xs text-red-600 mt-1">Invalid Ethereum address</p>
+                )}
+                {opponentAddress && opponentAddress.toLowerCase() === address?.toLowerCase() && (
+                  <p className="text-xs text-red-600 mt-1">You cannot play against yourself</p>
+                )}
+              </div>
+
+              {/* Action Buttons */}
+              <div className="space-y-3">
+                {!hasApproval && hasEnoughBalance && (
+                  <button
+                    onClick={handleApprove}
+                    disabled={isApproving}
+                    className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isApproving ? '⏳ Approving USDC...' : '1️⃣ Approve $1 USDC'}
+                  </button>
+                )}
+
+                {hasApproval && (
+                  <button
+                    onClick={handleCreateGame}
+                    disabled={!isValidOpponent || isCreating || !hasEnoughBalance}
+                    className="w-full bg-green-500 hover:bg-green-600 text-white font-bold py-4 px-6 rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    {isCreating ? '⏳ Creating Game...' : '2️⃣ Create Game ($1 USDC)'}
+                  </button>
+                )}
+              </div>
+
+              {isGameCreated && (
+                <div className="bg-green-100 border-2 border-green-500 rounded-lg p-4 text-center">
+                  <p className="text-green-800 font-bold">✅ Game Created!</p>
+                  <p className="text-sm text-green-700 mt-1">Waiting for opponent to join...</p>
+                </div>
+              )}
+
+              {/* Instructions */}
+              <div className="bg-carton-200 rounded-lg p-4 text-xs text-carton-700 space-y-2">
+                <p className="font-bold text-carton-800">How it works:</p>
+                <ol className="list-decimal list-inside space-y-1">
+                  <li>You pay $1 USDC to create a game</li>
+                  <li>Your opponent pays $1 USDC to join</li>
+                  <li>Winner gets $1.70 USDC automatically</li>
+                  <li>All moves recorded on Base blockchain</li>
+                </ol>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>

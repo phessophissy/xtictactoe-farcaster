@@ -5,10 +5,9 @@ import { LeaderboardEntry, calculateWinRate } from '@/utils/game';
 
 interface LeaderboardProps {
   onBack: () => void;
-  currentAddress?: string;
 }
 
-export default function Leaderboard({ onBack, currentAddress }: LeaderboardProps) {
+export default function Leaderboard({ onBack }: LeaderboardProps) {
   const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
   const [filter, setFilter] = useState<'all' | 'daily' | 'weekly'>('all');
 

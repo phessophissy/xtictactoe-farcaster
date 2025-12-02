@@ -4,19 +4,18 @@ import React, { useState } from 'react';
 import ModeSelector from '@/components/ModeSelector';
 import GameBoard from '@/components/GameBoard';
 import MatchmakingLobby from '@/components/MatchmakingLobby';
-import WaitingRoom from '@/components/WaitingRoom';
+import PvPGame from '@/components/PvPGame';
 import Leaderboard from '@/components/Leaderboard';
 import WalletButton from '@/components/WalletButton';
 import { GameMode, AIDifficulty } from '@/utils/game';
 import { soundManager, vibrateClick } from '@/utils/sound';
 
-type Screen = 'menu' | 'game' | 'matchmaking' | 'waiting' | 'leaderboard';
+type Screen = 'menu' | 'game' | 'matchmaking' | 'pvpgame' | 'leaderboard';
 
 export default function Home() {
   const [screen, setScreen] = useState<Screen>('menu');
   const [mode, setMode] = useState<GameMode>('ai');
   const [difficulty, setDifficulty] = useState<AIDifficulty>('medium');
-  const [opponent, setOpponent] = useState<string>('');
   const [gameId, setGameId] = useState<bigint | null>(null);
   const [soundEnabled, setSoundEnabled] = useState(true);
 
@@ -29,19 +28,13 @@ export default function Home() {
     }
   };
 
-  const handleMatchFound = (opponentAddress: string) => {
-    setOpponent(opponentAddress);
-    setScreen('waiting');
-  };
-
-  const handleGameStart = (id: bigint) => {
+  const handleGameCreated = (id: bigint) => {
     setGameId(id);
-    setScreen('game');
+    setScreen('pvpgame');
   };
 
   const handleBack = () => {
     setScreen('menu');
-    setOpponent('');
     setGameId(null);
   };
 
@@ -100,24 +93,20 @@ export default function Home() {
       {screen === 'matchmaking' && (
         <MatchmakingLobby
           onBack={handleBack}
-          onMatchFound={handleMatchFound}
-          currentAddress={undefined}
+          onGameCreated={handleGameCreated}
         />
       )}
 
-      {screen === 'waiting' && (
-        <WaitingRoom
-          opponent={opponent}
+      {screen === 'pvpgame' && gameId && (
+        <PvPGame
+          gameId={gameId}
           onBack={handleBack}
-          onGameStart={handleGameStart}
-          isCreator={true}
         />
       )}
 
       {screen === 'leaderboard' && (
         <Leaderboard
           onBack={handleBack}
-          currentAddress={undefined}
         />
       )}
     </main>
