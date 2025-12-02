@@ -1,8 +1,15 @@
 {
-  "name": "xTicTacToe",
-  "version": "0.0.1",
-  "iconUrl": "https://xtictactoe-farcaster.vercel.app/logo.png",
-  "splashImageUrl": "https://xtictactoe-farcaster.vercel.app/frame-image.svg",
-  "splashBackgroundColor": "#d8c0a0",
-  "homeUrl": "https://xtictactoe-farcaster.vercel.app"
+  "accountAssociation": {
+    "header": "eyJmaWQiOjEsInR5cGUiOiJjdXN0b2R5Iiwia2V5IjoiMHhiM0EyNWE0NzdDOTdGOEFlMmQ5QzUyQjdhY2ZiZTJDOEUyNTlkNWQ5In0",
+    "payload": "eyJkb21haW4iOiJ4dGljdGFjdG9lLWZhcmNhc3Rlci52ZXJjZWwuYXBwIn0",
+    "signature": "MHhhNDFmZDU3OTU3ZDNhODU5NjNhZjBmYzZiZmU3MjFkNGY3Mjg2MDM4NzZjMWYzNGM4YjYyMTJhYjI5ZGUzYmVlNGJiMzZmOWUwOWM1Yjk0NGVjYjU5MmJiZGQyMmNjMjUzZjU3MmE0ZWE1ZTMxOGZkYjM3ZjA2ZDY2YzU3MWU5YjFi"
+  },
+  "frame": {
+    "version": "next",
+    "name": "xTicTacToe",
+    "iconUrl": "https://xtictactoe-farcaster.vercel.app/logo.png",
+    "splashImageUrl": "https://xtictactoe-farcaster.vercel.app/frame-image.svg",
+    "splashBackgroundColor": "#d8c0a0",
+    "homeUrl": "https://xtictactoe-farcaster.vercel.app"
+  }
 }
