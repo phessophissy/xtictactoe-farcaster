@@ -93,7 +93,7 @@ export default function Home() {
       {screen === 'matchmaking' && (
         <MatchmakingLobby
           onBack={handleBack}
-          onGameCreated={handleGameCreated}
+          onGameStart={handleGameCreated}
         />
       )}
 

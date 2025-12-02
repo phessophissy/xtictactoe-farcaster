@@ -40,16 +40,14 @@ contract TicTacToeEscrow {
         USDC = _usdc;
     }
     
+    // Create open game (matchmaking) - anyone can join
     function createGame(address opponent) external returns (uint256) {
-        require(opponent != address(0), "Invalid opponent");
-        require(opponent != msg.sender, "Cannot play yourself");
-        
         IERC20(USDC).transferFrom(msg.sender, address(this), ENTRY_FEE);
         
         uint256 gameId = ++gameCounter;
         games[gameId] = Game({
             player1: msg.sender,
-            player2: opponent,
+            player2: opponent, // address(0) for open lobby
             pot: ENTRY_FEE,
             active: true,
             completed: false
@@ -84,10 +82,12 @@ contract TicTacToeEscrow {
         Game storage game = games[gameId];
         require(game.active, "Game not active");
         require(!game.completed, "Game completed");
-        require(msg.sender == game.player2, "Not invited");
+        require(game.player2 == address(0) || msg.sender == game.player2, "Game full or not invited");
+        require(msg.sender != game.player1, "Cannot play yourself");
         
         IERC20(USDC).transferFrom(msg.sender, address(this), ENTRY_FEE);
         
+        game.player2 = msg.sender; // Assign player2
         game.pot += ENTRY_FEE;
         
         emit GameJoined(gameId, msg.sender);

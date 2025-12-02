@@ -1,0 +1,1 @@
+Note: User needs to manually save the xtictactoe logo image to /home/thee1/xtictactoe-farcaster/public/logo.png
