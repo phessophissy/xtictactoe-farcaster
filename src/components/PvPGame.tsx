@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useAccount } from 'wagmi';
+import React, { useState, useEffect } from 'react';
+import { useAccount, useReadContract, useBlockNumber } from 'wagmi';
+import { CONTRACT_ADDRESS, ESCROW_ABI } from '@/config/contracts';
 import { Player, Board, checkWinner, checkDraw } from '@/utils/game';
 import { soundManager, vibrateMove, vibrateWin, vibrateLose } from '@/utils/sound';
 import { usePayout } from '@/hooks/useContract';
@@ -18,16 +19,72 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
   const [winner, setWinner] = useState<Player>(null);
   const [winningLine, setWinningLine] = useState<number[] | null>(null);
   const [isDraw, setIsDraw] = useState(false);
+  const [gameStartTime, setGameStartTime] = useState<number | null>(null);
+  const [elapsedTime, setElapsedTime] = useState(0);
   const { payout, isPending: isPayoutPending } = usePayout();
 
-  // For demo: Player 1 is always X, Player 2 is always O
-  // In production, you'd track this via WebSocket or database
-  const player1Address = '0x0000000000000000000000000000000000000000'; // Placeholder
-  const player2Address = '0x0000000000000000000000000000000000000001'; // Placeholder
-  
-  const isPlayer1 = true; // Simplified for demo
+  // Watch for block changes to refresh game state
+  const { data: blockNumber } = useBlockNumber({ watch: true });
+
+  // Read game state from blockchain
+  const { data: gameData, refetch } = useReadContract({
+    address: CONTRACT_ADDRESS as `0x${string}`,
+    abi: ESCROW_ABI,
+    functionName: 'games',
+    args: [gameId],
+  });
+
+  // Refetch game data when block changes
+  useEffect(() => {
+    if (blockNumber) {
+      refetch();
+    }
+  }, [blockNumber, refetch]);
+
+  // Parse game data and check if game started
+  useEffect(() => {
+    if (gameData && Array.isArray(gameData)) {
+      const [player1, player2, pot, active, completed] = gameData;
+      
+      // Start timer when player2 joins (both players exist)
+      if (player2 && player2 !== '0x0000000000000000000000000000000000000000' && !gameStartTime) {
+        setGameStartTime(Date.now());
+      }
+    }
+  }, [gameData, gameStartTime]);
+
+  // Update elapsed time every second
+  useEffect(() => {
+    if (!gameStartTime) return;
+    
+    const timer = setInterval(() => {
+      setElapsedTime(Math.floor((Date.now() - gameStartTime) / 1000));
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [gameStartTime]);
+
+  // Parse player addresses
+  const player1Address = gameData && Array.isArray(gameData) ? gameData[0] : null;
+  const player2Address = gameData && Array.isArray(gameData) ? gameData[1] : null;
+  const isActive = gameData && Array.isArray(gameData) ? gameData[3] : false;
+  const isCompleted = gameData && Array.isArray(gameData) ? gameData[4] : false;
+
+  // Determine if current user is player1 or player2
+  const isPlayer1 = address?.toLowerCase() === player1Address?.toLowerCase();
+  const isPlayer2 = address?.toLowerCase() === player2Address?.toLowerCase();
   const mySymbol: Player = isPlayer1 ? 'X' : 'O';
   const isMyTurn = currentPlayer === mySymbol;
+
+  // Check if waiting for player 2
+  const isWaitingForPlayer2 = !player2Address || player2Address === '0x0000000000000000000000000000000000000000';
+
+  // Format time as MM:SS
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+  };
 
   // Check for winner
   React.useEffect(() => {
@@ -50,7 +107,7 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
   }, [board, mySymbol]);
 
   const handleMove = (index: number) => {
-    if (board[index] || winner || isDraw || !isMyTurn) return;
+    if (board[index] || winner || isDraw || !isMyTurn || isWaitingForPlayer2) return;
 
     const newBoard = [...board];
     newBoard[index] = currentPlayer;
@@ -65,7 +122,6 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
 
   const handleClaimWin = async () => {
     if (!winner || !address) return;
-    // TODO: Determine winner address from game state
     const winnerAddress = winner === 'X' ? player1Address : player2Address;
     await payout(gameId, winnerAddress as `0x${string}`);
   };
@@ -73,6 +129,42 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
   const isWinningCell = (index: number) => {
     return winningLine?.includes(index);
   };
+
+  // Show waiting screen if player 2 hasn't joined
+  if (isWaitingForPlayer2) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-carton-100 via-carton-200 to-carton-300">
+        <div className="w-full max-w-md">
+          <div className="bg-gradient-to-br from-carton-50 to-carton-100 rounded-2xl shadow-2xl p-8 border-4 border-carton-400">
+            <div className="flex justify-between items-center mb-6">
+              <button
+                onClick={onBack}
+                className="bg-carton-300 hover:bg-carton-400 text-carton-800 font-bold py-2 px-4 rounded-lg transition-colors"
+              >
+                ← Back
+              </button>
+              <h2 className="text-2xl font-bold text-carton-800">⚔️ PvP</h2>
+              <div className="w-20"></div>
+            </div>
+
+            <div className="text-center space-y-6">
+              <div className="text-6xl animate-bounce">⏳</div>
+              <h3 className="text-2xl font-bold text-carton-800">Waiting for Opponent...</h3>
+              <p className="text-carton-600">Game #{gameId.toString()}</p>
+              <p className="text-sm text-carton-500">Share this game link with a friend to start playing!</p>
+              
+              <div className="bg-carton-200 rounded-lg p-4 border-2 border-carton-300">
+                <p className="text-xs text-carton-700 mb-2">Your Address:</p>
+                <p className="text-sm font-mono text-carton-900 break-all">
+                  {player1Address || 'Loading...'}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-carton-100 via-carton-200 to-carton-300">
@@ -91,6 +183,15 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
             </div>
           </div>
 
+          {/* Game Timer */}
+          {gameStartTime && (
+            <div className="mb-4 text-center">
+              <div className="inline-block bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold py-2 px-6 rounded-full text-2xl">
+                ⏱️ {formatTime(elapsedTime)}
+              </div>
+            </div>
+          )}
+
           <div className="mb-4 space-y-2 text-sm text-carton-700">
             <div className="flex justify-between">
               <span>You are:</span>
@@ -99,6 +200,12 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
             <div className="flex justify-between">
               <span>Prize Pool:</span>
               <span className="font-bold text-green-600">$1.70 USDC</span>
+            </div>
+            <div className="flex justify-between">
+              <span>Opponent:</span>
+              <span className="font-mono text-xs text-carton-600">
+                {isPlayer1 ? `${player2Address?.slice(0, 6)}...${player2Address?.slice(-4)}` : `${player1Address?.slice(0, 6)}...${player1Address?.slice(-4)}`}
+              </span>
             </div>
           </div>
 
