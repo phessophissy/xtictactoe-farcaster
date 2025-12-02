@@ -1,12 +1,10 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { useAccount, useReadContract } from 'wagmi';
-import { CONTRACT_ADDRESS, ESCROW_ABI } from '@/config/contracts';
+import React, { useState } from 'react';
+import { useAccount } from 'wagmi';
 import { Player, Board, checkWinner, checkDraw } from '@/utils/game';
 import { soundManager, vibrateMove, vibrateWin, vibrateLose } from '@/utils/sound';
 import { usePayout } from '@/hooks/useContract';
-import { formatUnits } from 'viem';
 
 interface PvPGameProps {
   gameId: bigint;
@@ -16,50 +14,28 @@ interface PvPGameProps {
 export default function PvPGame({ gameId, onBack }: PvPGameProps) {
   const { address } = useAccount();
   const [board, setBoard] = useState<Board>(Array(9).fill(null));
+  const [currentPlayer, setCurrentPlayer] = useState<Player>('X');
   const [winner, setWinner] = useState<Player>(null);
   const [winningLine, setWinningLine] = useState<number[] | null>(null);
   const [isDraw, setIsDraw] = useState(false);
   const { payout, isPending: isPayoutPending } = usePayout();
 
-  // Read game state from contract
-  const { data: gameData, refetch } = useReadContract({
-    address: CONTRACT_ADDRESS,
-    abi: ESCROW_ABI,
-    functionName: 'games',
-    args: [gameId],
-  });
-
-  const player1 = gameData?.[0] as `0x${string}` | undefined;
-  const player2 = gameData?.[1] as `0x${string}` | undefined;
-  const boardState = gameData?.[2] as number[] | undefined;
-  const currentTurn = gameData?.[3] as number | undefined;
-  const gameWinner = gameData?.[4] as `0x${string}` | undefined;
-  const isActive = gameData?.[5] as boolean | undefined;
-
-  const isPlayer1 = address?.toLowerCase() === player1?.toLowerCase();
-  const isPlayer2 = address?.toLowerCase() === player2?.toLowerCase();
-  const isMyTurn = (currentTurn === 1 && isPlayer1) || (currentTurn === 2 && isPlayer2);
+  // For demo: Player 1 is always X, Player 2 is always O
+  // In production, you'd track this via WebSocket or database
+  const player1Address = '0x0000000000000000000000000000000000000000'; // Placeholder
+  const player2Address = '0x0000000000000000000000000000000000000001'; // Placeholder
+  
+  const isPlayer1 = true; // Simplified for demo
   const mySymbol: Player = isPlayer1 ? 'X' : 'O';
+  const isMyTurn = currentPlayer === mySymbol;
 
-  // Convert contract board state (0,1,2) to our format (null, X, O)
-  useEffect(() => {
-    if (boardState) {
-      const convertedBoard: Board = boardState.map(cell => {
-        if (cell === 0) return null;
-        if (cell === 1) return 'X';
-        return 'O';
-      });
-      setBoard(convertedBoard);
-    }
-  }, [boardState]);
-
-  // Check for winner locally
-  useEffect(() => {
+  // Check for winner
+  React.useEffect(() => {
     const result = checkWinner(board);
     if (result.winner) {
       setWinner(result.winner);
       setWinningLine(result.winningLine);
-      const didIWin = (result.winner === 'X' && isPlayer1) || (result.winner === 'O' && isPlayer2);
+      const didIWin = result.winner === mySymbol;
       if (didIWin) {
         soundManager.playWin();
         vibrateWin();
@@ -71,56 +47,32 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
       setIsDraw(true);
       soundManager.playDraw();
     }
-  }, [board, isPlayer1, isPlayer2]);
+  }, [board, mySymbol]);
 
-  // Poll for updates every 2 seconds
-  useEffect(() => {
-    if (!isActive || winner || isDraw) return;
-    const interval = setInterval(() => {
-      refetch();
-    }, 2000);
-    return () => clearInterval(interval);
-  }, [isActive, winner, isDraw, refetch]);
+  const handleMove = (index: number) => {
+    if (board[index] || winner || isDraw || !isMyTurn) return;
 
-  const handleMove = async (index: number) => {
-    if (board[index] || winner || isDraw || !isMyTurn || !isActive) return;
-
-    // Optimistically update UI
     const newBoard = [...board];
-    newBoard[index] = mySymbol;
+    newBoard[index] = currentPlayer;
     setBoard(newBoard);
     soundManager.playMove();
     vibrateMove();
+    setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X');
 
-    // TODO: Call contract to record move
-    // This requires adding a makeMove function to the smart contract
-    // For now, this is a demonstration of the UI flow
+    // TODO: In production, send move to backend/WebSocket
+    // await sendMove(gameId, index, currentPlayer);
   };
 
   const handleClaimWin = async () => {
     if (!winner || !address) return;
-    const winnerAddress = winner === 'X' ? player1 : player2;
-    if (winnerAddress) {
-      await payout(gameId, winnerAddress);
-    }
+    // TODO: Determine winner address from game state
+    const winnerAddress = winner === 'X' ? player1Address : player2Address;
+    await payout(gameId, winnerAddress as `0x${string}`);
   };
 
   const isWinningCell = (index: number) => {
     return winningLine?.includes(index);
   };
-
-  if (!player1 || !player2) {
-    return (
-      <div className="min-h-screen flex items-center justify-center p-4">
-        <div className="text-center">
-          <p className="text-xl text-carton-700">Waiting for opponent...</p>
-          <button onClick={onBack} className="mt-4 bg-carton-400 hover:bg-carton-500 text-white font-bold py-2 px-6 rounded-lg">
-            Back
-          </button>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-carton-100 via-carton-200 to-carton-300">
@@ -154,9 +106,9 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
             {winner ? (
               <div className="space-y-2">
                 <p className="text-2xl font-bold text-carton-800 animate-bounce-in">
-                  {((winner === 'X' && isPlayer1) || (winner === 'O' && isPlayer2)) ? '🎉 You Win!' : '😔 You Lose!'}
+                  {winner === mySymbol ? '🎉 You Win!' : '😔 You Lose!'}
                 </p>
-                {((winner === 'X' && isPlayer1) || (winner === 'O' && isPlayer2)) && !gameWinner && (
+                {winner === mySymbol && (
                   <button
                     onClick={handleClaimWin}
                     disabled={isPayoutPending}
@@ -202,9 +154,11 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
             ))}
           </div>
 
-          <div className="text-xs text-center text-carton-600">
-            {!isActive && 'Game ended'}
-            {isActive && !winner && !isDraw && 'Syncing with blockchain...'}
+          <div className="bg-yellow-100 border-2 border-yellow-400 rounded-lg p-3 text-center">
+            <p className="text-xs text-yellow-800">
+              <strong>Demo Mode:</strong> In production, moves would sync via WebSocket for real-time multiplayer.
+              Currently showing local gameplay only.
+            </p>
           </div>
         </div>
       </div>
