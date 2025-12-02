@@ -1,11 +1,11 @@
 {
   "version": "0.0.1",
-  "name": "xTicTacToe",
-  "iconUrl": "https://your-domain.com/icon.png",
-  "homeUrl": "https://your-domain.com",
-  "imageUrl": "https://your-domain.com/preview.png",
-  "buttonTitle": "Play xTicTacToe",
-  "splashImageUrl": "https://your-domain.com/splash.png",
+  "name": "xTicTacToe - Play for USDC",
+  "iconUrl": "https://xtictactoe-farcaster.vercel.app/logo.png",
+  "homeUrl": "https://xtictactoe-farcaster.vercel.app",
+  "imageUrl": "https://xtictactoe-farcaster.vercel.app/logo.png",
+  "buttonTitle": "🎮 Play xTicTacToe",
+  "splashImageUrl": "https://xtictactoe-farcaster.vercel.app/logo.png",
   "splashBackgroundColor": "#d8c0a0",
-  "webhookUrl": "https://your-domain.com/api/webhook"
+  "description": "Play TicTacToe vs AI (FREE) or compete for $1.70 USDC prizes in PvP mode on Base blockchain"
 }
