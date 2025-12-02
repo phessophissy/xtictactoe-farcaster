@@ -3,10 +3,9 @@
 import React, { useState, useEffect } from 'react';
 import { useAccount, useReadContract, useBlockNumber } from 'wagmi';
 import { CONTRACT_ADDRESS, ESCROW_ABI } from '@/config/contracts';
-import { Player, checkWinner, checkDraw } from '@/utils/game';
+import { Player, Board, checkWinner, checkDraw } from '@/utils/game';
 import { soundManager, vibrateMove, vibrateWin, vibrateLose } from '@/utils/sound';
 import { usePayout } from '@/hooks/useContract';
-import { useGameMoves } from '@/hooks/useGameMoves';
 
 interface PvPGameProps {
   gameId: bigint;
@@ -15,6 +14,8 @@ interface PvPGameProps {
 
 export default function PvPGame({ gameId, onBack }: PvPGameProps) {
   const { address } = useAccount();
+  const [board, setBoard] = useState<Board>(Array(9).fill(null));
+  const [currentPlayer, setCurrentPlayer] = useState<Player>('X');
   const [winner, setWinner] = useState<Player>(null);
   const [winningLine, setWinningLine] = useState<number[] | null>(null);
   const [isDraw, setIsDraw] = useState(false);
@@ -24,7 +25,7 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
 
   // Watch for block changes to refresh game state
   const { data: blockNumber } = useBlockNumber({ watch: true });
-  
+
   // Read game state from blockchain
   const { data: gameData, refetch } = useReadContract({
     address: CONTRACT_ADDRESS as `0x${string}`,
@@ -39,30 +40,6 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
       refetch();
     }
   }, [blockNumber, refetch]);
-
-  // Parse player addresses
-  const player1Address = gameData && Array.isArray(gameData) ? gameData[0] : null;
-  const player2Address = gameData && Array.isArray(gameData) ? gameData[1] : null;
-  const isActive = gameData && Array.isArray(gameData) ? gameData[3] : false;
-  const isCompleted = gameData && Array.isArray(gameData) ? gameData[4] : false;
-  
-  // Determine if current user is player1 or player2
-  const isPlayer1 = address?.toLowerCase() === player1Address?.toLowerCase();
-  const isPlayer2 = address?.toLowerCase() === player2Address?.toLowerCase();
-  const mySymbol: Player = isPlayer1 ? 'X' : 'O';
-
-  // Check if waiting for player 2
-  const isWaitingForPlayer2 = !player2Address || player2Address === '0x0000000000000000000000000000000000000000';
-  
-  // Use synced game moves hook
-  const { board, currentPlayer, makeMove, isSubmitting } = useGameMoves({
-    gameId,
-    myAddress: address,
-    mySymbol,
-    enabled: !isWaitingForPlayer2, // Only sync when game has started
-  });
-
-  const isMyTurn = currentPlayer === mySymbol;
 
   // Parse game data and check if game started
   useEffect(() => {
@@ -86,6 +63,21 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
 
     return () => clearInterval(timer);
   }, [gameStartTime]);
+
+  // Parse player addresses
+  const player1Address = gameData && Array.isArray(gameData) ? gameData[0] : null;
+  const player2Address = gameData && Array.isArray(gameData) ? gameData[1] : null;
+  const isActive = gameData && Array.isArray(gameData) ? gameData[3] : false;
+  const isCompleted = gameData && Array.isArray(gameData) ? gameData[4] : false;
+
+  // Determine if current user is player1 or player2
+  const isPlayer1 = address?.toLowerCase() === player1Address?.toLowerCase();
+  const isPlayer2 = address?.toLowerCase() === player2Address?.toLowerCase();
+  const mySymbol: Player = isPlayer1 ? 'X' : 'O';
+  const isMyTurn = currentPlayer === mySymbol;
+
+  // Check if waiting for player 2
+  const isWaitingForPlayer2 = !player2Address || player2Address === '0x0000000000000000000000000000000000000000';
 
   // Format time as MM:SS
   const formatTime = (seconds: number) => {
@@ -114,14 +106,18 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
     }
   }, [board, mySymbol]);
 
-  const handleMove = async (index: number) => {
-    if (board[index] || winner || isDraw || !isMyTurn || isWaitingForPlayer2 || isSubmitting) return;
-    
-    const success = await makeMove(index);
-    if (success) {
-      soundManager.playMove();
-      vibrateMove();
-    }
+  const handleMove = (index: number) => {
+    if (board[index] || winner || isDraw || !isMyTurn || isWaitingForPlayer2) return;
+
+    const newBoard = [...board];
+    newBoard[index] = currentPlayer;
+    setBoard(newBoard);
+    soundManager.playMove();
+    vibrateMove();
+    setCurrentPlayer(currentPlayer === 'X' ? 'O' : 'X');
+
+    // TODO: In production, send move to backend/WebSocket
+    // await sendMove(gameId, index, currentPlayer);
   };
 
   const handleClaimWin = async () => {
@@ -243,7 +239,7 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
               <button
                 key={index}
                 onClick={() => handleMove(index)}
-                disabled={!!cell || !!winner || isDraw || !isMyTurn || isSubmitting}
+                disabled={!!cell || !!winner || isDraw || !isMyTurn}
                 className={`
                   aspect-square bg-gradient-to-br from-carton-200 to-carton-300
                   rounded-xl shadow-lg hover:shadow-xl
@@ -252,8 +248,8 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
                   border-2 border-carton-400
                   ${cell ? 'cursor-default' : 'cursor-pointer'}
                   ${isWinningCell(index) ? 'animate-cell-win bg-gradient-to-br from-carton-400 to-carton-500' : ''}
-                  ${!cell && !winner && !isDraw && isMyTurn && !isSubmitting ? 'hover:bg-gradient-to-br hover:from-carton-300 hover:to-carton-400 hover:scale-105' : ''}
-                  ${(!isMyTurn || isSubmitting) && !cell ? 'opacity-60' : ''}
+                  ${!cell && !winner && !isDraw && isMyTurn ? 'hover:bg-gradient-to-br hover:from-carton-300 hover:to-carton-400 hover:scale-105' : ''}
+                  ${!isMyTurn && !cell ? 'opacity-60' : ''}
                 `}
               >
                 {cell && (
@@ -265,9 +261,10 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
             ))}
           </div>
 
-          <div className="bg-green-100 border-2 border-green-400 rounded-lg p-3 text-center">
-            <p className="text-xs text-green-800">
-              <strong>✅ Real-time Sync Active:</strong> Moves sync between players every 2 seconds via backend API.
+          <div className="bg-yellow-100 border-2 border-yellow-400 rounded-lg p-3 text-center">
+            <p className="text-xs text-yellow-800">
+              <strong>Demo Mode:</strong> In production, moves would sync via WebSocket for real-time multiplayer.
+              Currently showing local gameplay only.
             </p>
           </div>
         </div>
