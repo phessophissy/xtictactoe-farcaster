@@ -22,6 +22,10 @@ export default function RootLayout({
         <link rel="icon" href="/logo.png" type="image/png" />
       </head>
       <body>
+        {/* Decorative floating X and O elements */}
+        <div className="decorative-x" style={{ fontSize: '150px' }}>X</div>
+        <div className="decorative-o" style={{ fontSize: '150px' }}>O</div>
+        
         <AppKitProviderWrapper>
           {children}
         </AppKitProviderWrapper>
