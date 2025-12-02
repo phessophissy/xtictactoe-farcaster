@@ -7,7 +7,7 @@ interface IERC20 {
 }
 
 contract TicTacToeEscrow {
-    address public immutable CREATOR;
+    address public constant CREATOR = 0xb3A25a477C97F8Ae2d9C52B7acfbe2C8E259d5d9;
     address public immutable USDC; // Base USDC
     uint256 public constant ENTRY_FEE = 1e6; // 1 USDC
     uint256 public constant CREATOR_FEE = 3e5; // 0.30 USDC
@@ -36,7 +36,6 @@ contract TicTacToeEscrow {
     event SponsoredEntry(uint256 indexed gameId, address indexed player);
     
     constructor(address _paymaster, address _usdc) {
-        CREATOR = msg.sender;
         PAYMASTER = _paymaster;
         USDC = _usdc;
     }
