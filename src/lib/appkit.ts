@@ -28,8 +28,8 @@ createAppKit({
   metadata,
   features: {
     analytics: false,
-    email: false,
-    socials: false,
+    email: true,
+    socials: ['google', 'x', 'discord', 'farcaster', 'github'],
     swaps: false,
     onramp: false
   },
