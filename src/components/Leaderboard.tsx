@@ -1,62 +1,15 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { LeaderboardEntry, calculateWinRate } from '@/utils/game';
+import React, { useState } from 'react';
+import { useLeaderboard } from '@/hooks/useLeaderboard';
 
 interface LeaderboardProps {
   onBack: () => void;
 }
 
 export default function Leaderboard({ onBack }: LeaderboardProps) {
-  const [entries, setEntries] = useState<LeaderboardEntry[]>([]);
+  const { entries, isLoading } = useLeaderboard();
   const [filter, setFilter] = useState<'all' | 'daily' | 'weekly'>('all');
-
-  useEffect(() => {
-    // Mock leaderboard data - in production, fetch from contract or subgraph
-    const mockEntries: LeaderboardEntry[] = [
-      {
-        address: '0x1234...5678',
-        username: 'CryptoKing',
-        wins: 45,
-        losses: 12,
-        winRate: calculateWinRate(45, 12),
-        rank: 1,
-      },
-      {
-        address: '0xabcd...ef01',
-        username: 'TicTacPro',
-        wins: 38,
-        losses: 15,
-        winRate: calculateWinRate(38, 15),
-        rank: 2,
-      },
-      {
-        address: '0x9876...4321',
-        username: 'ChainMaster',
-        wins: 32,
-        losses: 18,
-        winRate: calculateWinRate(32, 18),
-        rank: 3,
-      },
-      {
-        address: '0x5555...6666',
-        username: 'BlockWarrior',
-        wins: 28,
-        losses: 22,
-        winRate: calculateWinRate(28, 22),
-        rank: 4,
-      },
-      {
-        address: '0x7777...8888',
-        username: 'Web3Gamer',
-        wins: 25,
-        losses: 20,
-        winRate: calculateWinRate(25, 20),
-        rank: 5,
-      },
-    ];
-    setEntries(mockEntries);
-  }, [filter]);
 
   const getRankEmoji = (rank: number) => {
     if (rank === 1) return '🥇';
