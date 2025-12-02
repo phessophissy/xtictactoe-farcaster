@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#d8c0a0"/>
+  
+  <!-- Decorative X and O -->
+  <text x="100" y="150" font-family="Arial Black" font-size="120" fill="rgba(186, 140, 82, 0.3)" font-weight="bold">X</text>
+  <circle cx="1050" cy="500" r="60" fill="none" stroke="rgba(186, 140, 82, 0.3)" stroke-width="20"/>
+  
+  <!-- Main content -->
+  <rect x="200" y="150" width="800" height="330" fill="#ba8c52" rx="30"/>
+  
+  <!-- Title -->
+  <text x="600" y="250" font-family="Arial Black" font-size="72" fill="white" text-anchor="middle" font-weight="bold">xTicTacToe</text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="320" font-family="Arial" font-size="36" fill="rgba(255,255,255,0.9)" text-anchor="middle">🎮 AI Mode (FREE)</text>
+  <text x="600" y="370" font-family="Arial" font-size="36" fill="rgba(255,255,255,0.9)" text-anchor="middle">💰 PvP Mode - Win $1.70 USDC</text>
+  
+  <!-- Footer -->
+  <text x="600" y="440" font-family="Arial" font-size="28" fill="rgba(255,255,255,0.8)" text-anchor="middle">Powered by Base Blockchain</text>
+</svg>

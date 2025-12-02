@@ -12,12 +12,12 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'xTicTacToe - Play for USDC on Base',
     description: 'AI Mode (FREE) or PvP Mode ($1 USDC) - Win $1.70 USDC prizes!',
-    images: ['/logo.png'],
+    images: ['/frame-image.svg'],
     type: 'website',
   },
   other: {
     'fc:frame': 'vNext',
-    'fc:frame:image': 'https://xtictactoe-farcaster.vercel.app/logo.png',
+    'fc:frame:image': 'https://xtictactoe-farcaster.vercel.app/frame-image.svg',
     'fc:frame:button:1': '🎮 Play Free AI Mode',
     'fc:frame:button:2': '💰 Play PvP for USDC',
     'fc:frame:button:1:action': 'link',
