@@ -93,8 +93,9 @@ export default function MatchmakingLobby({ onBack, onGameStart }: MatchmakingLob
       const games: OpenGame[] = [];
       const counter = Number(gameCounter);
 
-      // Fetch last 20 games (or all if less than 20)
-      const startId = Math.max(1, counter - 19);
+      // Fetch ALL games (up to 100 for performance)
+      const gamesToFetch = Math.min(counter, 100);
+      const startId = Math.max(1, counter - gamesToFetch + 1);
       
       for (let i = counter; i >= startId; i--) {
         try {
@@ -103,8 +104,14 @@ export default function MatchmakingLobby({ onBack, onGameStart }: MatchmakingLob
           
           const game = await response.json();
           
-          // Only show games waiting for player2 (player2 === address(0))
-          if (game.active && !game.completed && game.player2 === '0x0000000000000000000000000000000000000000') {
+          // Only show games that are:
+          // 1. Active (not completed)
+          // 2. Waiting for player2 (player2 is still address(0))
+          const isWaitingForPlayer2 = game.player2 === '0x0000000000000000000000000000000000000000' ||
+                                       game.player2 === '0x0' ||
+                                       !game.player2;
+          
+          if (game.active && !game.completed && isWaitingForPlayer2) {
             games.push({
               gameId: BigInt(i),
               player1: game.player1,
@@ -144,6 +151,9 @@ export default function MatchmakingLobby({ onBack, onGameStart }: MatchmakingLob
 
   const handleJoinGame = async (gameId: bigint) => {
     if (!address) return;
+    
+    // Immediately remove the game from the list (optimistic update)
+    setOpenGames(prevGames => prevGames.filter(game => game.gameId !== gameId));
     
     await joinGame(gameId);
     soundManager.playMatchFound();
