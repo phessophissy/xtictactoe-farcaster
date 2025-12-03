@@ -155,11 +155,23 @@ export default function MatchmakingLobby({ onBack, onGameStart }: MatchmakingLob
     // Immediately remove the game from the list (optimistic update)
     setOpenGames(prevGames => prevGames.filter(game => game.gameId !== gameId));
     
-    await joinGame(gameId);
-    soundManager.playMatchFound();
-    vibrateClick();
-    
-    setTimeout(() => onGameStart(gameId), 2000);
+    try {
+      await joinGame(gameId);
+      soundManager.playMatchFound();
+      vibrateClick();
+      
+      // Wait a bit for transaction to be confirmed before navigating
+      setTimeout(() => onGameStart(gameId), 2000);
+    } catch (error) {
+      console.error('Error joining game:', error);
+      soundManager.playLose();
+      
+      // Restore the game to the list if join failed
+      setRefreshTrigger(prev => prev + 1);
+      
+      // Show error message to user
+      alert('Failed to join game. It may already be full or the transaction was rejected.');
+    }
   };
 
   return (

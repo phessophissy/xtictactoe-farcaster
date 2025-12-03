@@ -58,7 +58,19 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
 
   // Check if waiting for player 2
   const isWaitingForPlayer2 = !player2Address || player2Address === '0x0000000000000000000000000000000000000000';
-
+  
+  // Validate that current user is a player in this game
+  useEffect(() => {
+    if (!gameData || !address) return;
+    
+    // If game has both players and current user is neither, redirect back
+    if (!isWaitingForPlayer2 && !isPlayer1 && !isPlayer2) {
+      console.warn('User is not a player in this game, redirecting to lobby');
+      alert('You are not a player in this game.');
+      onBack();
+    }
+  }, [gameData, address, isPlayer1, isPlayer2, isWaitingForPlayer2, onBack]);
+  
   // Aggressive polling while waiting for player 2 (every 1 second)
   useEffect(() => {
     if (isWaitingForPlayer2) {
@@ -68,9 +80,7 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
 
       return () => clearInterval(pollInterval);
     }
-  }, [isWaitingForPlayer2, refetch]);
-  
-  // Use synced game moves hook
+  }, [isWaitingForPlayer2, refetch]);  // Use synced game moves hook
   const { board, currentPlayer, makeMove, isSubmitting, lastMoveTimestamp, skipTurn } = useGameMoves({
     gameId,
     myAddress: address,
