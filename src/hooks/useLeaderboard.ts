@@ -49,6 +49,19 @@ export function useLeaderboard() {
               
               playerStats.get(p1)!.total++;
               playerStats.get(p2)!.total++;
+              
+              // Track wins and losses based on winner
+              if (game.winner) {
+                if (game.winner === 'draw') {
+                  // Draw - no wins or losses for either player
+                } else if (game.winner.toLowerCase() === p1) {
+                  playerStats.get(p1)!.wins++;
+                  playerStats.get(p2)!.losses++;
+                } else if (game.winner.toLowerCase() === p2) {
+                  playerStats.get(p2)!.wins++;
+                  playerStats.get(p1)!.losses++;
+                }
+              }
             }
           } catch (err) {
             continue;
@@ -64,7 +77,7 @@ export function useLeaderboard() {
             winRate: stats.total > 0 ? (stats.wins / stats.total) * 100 : 0,
             rank: 0,
           }))
-          .sort((a, b) => b.totalGames - a.totalGames)
+          .sort((a, b) => b.wins - a.wins)
           .slice(0, 10)
           .map((entry, index) => ({ ...entry, rank: index + 1 }));
         
