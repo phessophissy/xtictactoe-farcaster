@@ -1,0 +1,46 @@
+/* Leaf Green Focus Styles */
+
+/* Custom Focus Ring */
+.focus-leaf {
+  @apply focus:outline-none focus:ring-2 focus:ring-leaf-400 focus:ring-offset-2;
+}
+
+/* Focus Within Container */
+.focus-within-leaf {
+  @apply focus-within:ring-2 focus-within:ring-leaf-400;
+}
+
+/* Visible Focus Only */
+.focus-visible-leaf {
+  @apply focus-visible:outline-none focus-visible:ring-2 
+         focus-visible:ring-leaf-500 focus-visible:ring-offset-2;
+}
+
+/* No Focus Outline */
+.focus-none-leaf {
+  @apply focus:outline-none focus:ring-0;
+}
+
+/* Focus Glow Effect */
+.focus-glow-leaf {
+  @apply focus:outline-none;
+}
+
+.focus-glow-leaf:focus {
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.4);
+}
+
+/* Focus Border */
+.focus-border-leaf {
+  @apply focus:border-leaf-500 focus:outline-none;
+}
+
+/* Focus Scale */
+.focus-scale-leaf {
+  @apply focus:scale-105 focus:outline-none transition-transform;
+}
+
+/* Keyboard Focus Indicator */
+[data-focus-visible-added] .focus-keyboard-leaf {
+  @apply ring-2 ring-leaf-500 ring-offset-2;
+}
