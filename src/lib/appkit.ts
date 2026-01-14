@@ -35,7 +35,7 @@ createAppKit({
   },
   themeMode: 'light',
   themeVariables: {
-    '--w3m-accent': '#ba8c52',
+    '--w3m-accent': '#22c55e',
     '--w3m-border-radius-master': '8px'
   },
   allowUnsupportedChain: false
