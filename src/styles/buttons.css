@@ -1,0 +1,57 @@
+/* Leaf Green Button Styles */
+
+/* Primary Button */
+.btn-leaf-primary {
+  @apply bg-gradient-to-r from-leaf-500 to-leaf-600 
+         hover:from-leaf-600 hover:to-leaf-700
+         text-white font-bold py-3 px-6 
+         rounded-xl shadow-lg transition-all
+         active:scale-95;
+}
+
+/* Secondary Button */
+.btn-leaf-secondary {
+  @apply bg-leaf-200 hover:bg-leaf-300
+         text-leaf-800 font-semibold py-2 px-4
+         rounded-lg border border-leaf-400
+         transition-all active:scale-95;
+}
+
+/* Outline Button */
+.btn-leaf-outline {
+  @apply bg-transparent border-2 border-leaf-500
+         text-leaf-600 hover:bg-leaf-100
+         font-semibold py-2 px-4 rounded-lg
+         transition-all active:scale-95;
+}
+
+/* Ghost Button */
+.btn-leaf-ghost {
+  @apply bg-transparent hover:bg-leaf-100
+         text-leaf-700 font-medium py-2 px-4
+         rounded-lg transition-all;
+}
+
+/* Icon Button */
+.btn-leaf-icon {
+  @apply bg-leaf-400 hover:bg-leaf-500
+         text-white p-3 rounded-lg
+         shadow-lg transition-all
+         active:scale-90;
+}
+
+/* Large CTA Button */
+.btn-leaf-cta {
+  @apply bg-gradient-to-r from-leaf-600 to-leaf-700
+         hover:from-leaf-700 hover:to-leaf-800
+         text-white font-bold py-4 px-8
+         rounded-2xl shadow-xl transition-all
+         transform hover:scale-105 active:scale-95
+         animate-glow-pulse;
+}
+
+/* Disabled state */
+.btn-leaf-disabled {
+  @apply opacity-50 cursor-not-allowed
+         pointer-events-none;
+}
