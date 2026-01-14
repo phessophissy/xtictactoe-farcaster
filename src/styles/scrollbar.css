@@ -1,0 +1,47 @@
+/* Leaf Green Scrollbar Styles */
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #dcfce7;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #4ade80 0%, #22c55e 100%);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #22c55e 0%, #16a34a 100%);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #22c55e #dcfce7;
+}
+
+/* Hidden scrollbar utility */
+.scrollbar-leaf-hidden {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.scrollbar-leaf-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+/* Thin scrollbar */
+.scrollbar-leaf-thin::-webkit-scrollbar {
+  width: 4px;
+}
+
+/* Wide scrollbar */
+.scrollbar-leaf-wide::-webkit-scrollbar {
+  width: 12px;
+}
