@@ -45,6 +45,18 @@ export default function ModeSelector({ onSelectMode, difficulty, onDifficultyCha
               <div className="text-sm opacity-90">Free Practice</div>
             </button>
 
+            {/* Quick Play Button */}
+            <button
+              onClick={() => handleModeSelect('ai')}
+              className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-102 transition-all duration-200 border-2 border-green-700 flex items-center justify-center gap-2"
+            >
+              <span className="text-xl">⚡</span>
+              <div className="text-center">
+                <div className="text-lg">Quick Play</div>
+                <div className="text-xs opacity-90">Instant AI game • Last 30s</div>
+              </div>
+            </button>
+
             <button
               onClick={() => handleModeSelect('pvp')}
               className="w-full bg-gradient-to-r from-leaf-600 to-leaf-700 hover:from-leaf-700 hover:to-leaf-800 text-white font-bold py-6 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 border-2 border-leaf-800 animate-glow-pulse"
