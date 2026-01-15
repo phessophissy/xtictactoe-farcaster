@@ -1,12 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.20;
 
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+
 interface IERC20 {
     function transferFrom(address from, address to, uint256 amount) external returns (bool);
     function transfer(address to, uint256 amount) external returns (bool);
 }
 
-contract TicTacToeEscrow {
+contract TicTacToeEscrow is ReentrancyGuard{
     address public constant CREATOR = 0xb3A25a477C97F8Ae2d9C52B7acfbe2C8E259d5d9;
     address public immutable USDC; // Base USDC
     uint256 public constant ENTRY_FEE = 1e6; // 1 USDC
@@ -35,7 +37,7 @@ contract TicTacToeEscrow {
     event GameCompleted(uint256 indexed gameId, address indexed winner, uint256 payout);
     event SponsoredEntry(uint256 indexed gameId, address indexed player);
     
-    constructor(address _paymaster, address _usdc) {
+    constructor(address _paymaster, address _usdc) ReentrancyGuard() {
         PAYMASTER = _paymaster;
         USDC = _usdc;
     }
@@ -108,7 +110,7 @@ contract TicTacToeEscrow {
         emit SponsoredEntry(gameId, player2);
     }
     
-    function payout(uint256 gameId, address winner) external {
+ function payout(uint256 gameId, address winner) external nonReentrant {
         Game storage game = games[gameId];
         require(game.active, "Game not active");
         require(!game.completed, "Already completed");
@@ -116,6 +118,7 @@ contract TicTacToeEscrow {
         require(winner == game.player1 || winner == game.player2, "Invalid winner");
         require(msg.sender == game.player1 || msg.sender == game.player2 || msg.sender == CREATOR, "Unauthorized");
         
+        // Update state BEFORE external calls (Checks-Effects-Interactions pattern)
         game.active = false;
         game.completed = true;
         
@@ -127,9 +130,9 @@ contract TicTacToeEscrow {
         losses[loser]++;
         totalGames[loser]++;
         
-        // Transfer payouts
-        IERC20(USDC).transfer(CREATOR, CREATOR_FEE);
-        IERC20(USDC).transfer(winner, WINNER_PAYOUT);
+        // Transfer payouts AFTER state updates
+        require(IERC20(USDC).transfer(CREATOR, CREATOR_FEE), "Creator transfer failed");
+        require(IERC20(USDC).transfer(winner, WINNER_PAYOUT), "Winner transfer failed");
         
         emit GameCompleted(gameId, winner, WINNER_PAYOUT);
     }
