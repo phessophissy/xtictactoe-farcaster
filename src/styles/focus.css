@@ -31,16 +31,16 @@
 }
 
 /* Focus Border */
-.focus-border-leaf {
+.focus-border-gold {
   @apply focus:border-gold-500 focus:outline-none;
 }
 
 /* Focus Scale */
-.focus-scale-leaf {
+.focus-scale-gold {
   @apply focus:scale-105 focus:outline-none transition-transform;
 }
 
 /* Keyboard Focus Indicator */
-[data-focus-visible-added] .focus-keyboard-leaf {
+[data-focus-visible-added] .focus-keyboard-gold {
   @apply ring-2 ring-gold-500 ring-offset-2;
 }
