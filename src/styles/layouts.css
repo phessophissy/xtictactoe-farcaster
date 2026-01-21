@@ -1,60 +1,60 @@
 /* Leaf Green Layout Styles */
 
 /* Main Container */
-.layout-leaf-main {
+.layout-gold-main {
   @apply min-h-screen bg-gradient-to-br 
-         from-leaf-100 via-leaf-200 to-leaf-300;
+         from-gold-100 via-gold-200 to-gold-300;
 }
 
 /* Centered Container */
-.layout-leaf-center {
+.layout-gold-center {
   @apply flex items-center justify-center
          min-h-screen p-4;
 }
 
 /* Header */
-.layout-leaf-header {
+.layout-gold-header {
   @apply fixed top-0 left-0 right-0 z-50
-         bg-leaf-50/90 backdrop-blur-sm
-         border-b border-leaf-300
+         bg-gold-50/90 backdrop-blur-sm
+         border-b border-gold-300
          px-4 py-3;
 }
 
 /* Footer */
-.layout-leaf-footer {
+.layout-gold-footer {
   @apply fixed bottom-0 left-0 right-0
-         bg-leaf-50/90 backdrop-blur-sm
-         border-t border-leaf-300
-         px-4 py-3 text-center text-leaf-600;
+         bg-gold-50/90 backdrop-blur-sm
+         border-t border-gold-300
+         px-4 py-3 text-center text-gold-600;
 }
 
 /* Content Wrapper */
-.layout-leaf-content {
+.layout-gold-content {
   @apply max-w-md mx-auto w-full;
 }
 
 /* Full Width Content */
-.layout-leaf-full {
+.layout-gold-full {
   @apply w-full max-w-4xl mx-auto px-4;
 }
 
 /* Two Column */
-.layout-leaf-two-col {
+.layout-gold-two-col {
   @apply grid md:grid-cols-2 gap-6;
 }
 
 /* Sidebar */
-.layout-leaf-sidebar {
-  @apply w-64 bg-leaf-100 border-r border-leaf-300
+.layout-gold-sidebar {
+  @apply w-64 bg-gold-100 border-r border-gold-300
          min-h-screen p-4;
 }
 
 /* Floating Action Area */
-.layout-leaf-fab {
+.layout-gold-fab {
   @apply fixed bottom-6 right-6 z-40;
 }
 
 /* Stack Layout */
-.layout-leaf-stack {
+.layout-gold-stack {
   @apply flex flex-col gap-4;
 }
