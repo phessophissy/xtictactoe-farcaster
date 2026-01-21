@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useLeaderboard } from '@/hooks/useLeaderboard';
 
 interface LeaderboardProps {
@@ -10,6 +10,11 @@ interface LeaderboardProps {
 export default function Leaderboard({ onBack }: LeaderboardProps) {
   const { entries, isLoading } = useLeaderboard();
   const [filter, setFilter] = useState<'all' | 'daily' | 'weekly'>('all');
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
   const getRankEmoji = (rank: number) => {
     if (rank === 1) return '🥇';
@@ -19,29 +24,37 @@ export default function Leaderboard({ onBack }: LeaderboardProps) {
   };
 
   const getRankColor = (rank: number) => {
-    if (rank === 1) return 'from-yellow-400 to-yellow-500';
-    if (rank === 2) return 'from-gray-300 to-gray-400';
-    if (rank === 3) return 'from-orange-400 to-orange-500';
-    return 'from-gold-200 to-gold-300';
+    if (rank === 1) return 'from-yellow-500 to-amber-600';
+    if (rank === 2) return 'from-gray-400 to-gray-500';
+    if (rank === 3) return 'from-amber-600 to-orange-600';
+    return 'from-obsidian-300 to-obsidian-400';
+  };
+
+  const getRowDelayClass = (index: number) => {
+    const delays = ['animation-delay-100', 'animation-delay-200', 'animation-delay-300', 
+                    'animation-delay-400', 'animation-delay-500', 'animation-delay-600',
+                    'animation-delay-700', 'animation-delay-800', 'animation-delay-900',
+                    'animation-delay-1000'];
+    return delays[index] || 'animation-delay-1000';
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-gold-100 via-gold-200 to-gold-300">
-      <div className="w-full max-w-2xl">
-        <div className="bg-gradient-to-br from-gold-50 to-gold-100 rounded-2xl shadow-2xl p-8 border-4 border-gold-400">
+    <div className={`min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-obsidian-50 via-obsidian-100 to-obsidian-200 ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`}>
+      <div className={`w-full max-w-2xl ${isLoaded ? 'animate-slide-up' : 'opacity-0'}`}>
+        <div className="metal-card p-8 animate-glow-gold">
           <div className="flex justify-between items-center mb-6">
             <button
               onClick={onBack}
-              className="bg-gold-300 hover:bg-gold-400 text-gold-800 font-bold py-2 px-4 rounded-lg transition-colors"
+              className="metal-btn text-sm hover:animate-wiggle"
             >
               ← Back
             </button>
-            <h2 className="text-2xl font-bold text-gold-800">🏆 Leaderboard</h2>
+            <h2 className="text-2xl font-bold metal-text animate-gold-shimmer">🏆 Leaderboard</h2>
             <div className="w-20"></div>
           </div>
 
-          <div className="flex gap-2 mb-6 justify-center">
-            {(['all', 'daily', 'weekly'] as const).map((f) => (
+          <div className={`flex gap-2 mb-6 justify-center ${isLoaded ? 'animate-scale-in animation-delay-200' : 'opacity-0'}`}>
+            {(['all', 'daily', 'weekly'] as const).map((f, idx) => (
               <button
                 key={f}
                 onClick={() => setFilter(f)}
@@ -49,8 +62,8 @@ export default function Leaderboard({ onBack }: LeaderboardProps) {
                   px-4 py-2 rounded-lg font-semibold capitalize transition-all
                   ${
                     filter === f
-                      ? 'bg-gold-600 text-white'
-                      : 'bg-gold-300 text-gold-700 hover:bg-gold-400'
+                      ? 'metal-btn animate-glow-gold'
+                      : 'bg-obsidian-400 text-gold-300 hover:bg-obsidian-300 hover:animate-wiggle'
                   }
                 `}
               >
@@ -59,38 +72,43 @@ export default function Leaderboard({ onBack }: LeaderboardProps) {
             ))}
           </div>
 
-          <div className="space-y-3 max-h-[500px] overflow-y-auto">
-            {entries.map((entry, index) => {
-              return (
+          <div className="space-y-3 max-h-[500px] overflow-y-auto custom-scrollbar">
+            {isLoading ? (
+              <div className="flex justify-center py-8">
+                <div className="metal-spinner animate-gold-spin"></div>
+              </div>
+            ) : (
+              entries.map((entry, index) => (
                 <div
                   key={index}
                   className={`
-                    rounded-lg p-4 flex items-center gap-4
+                    metal-row rounded-lg p-4 flex items-center gap-4
                     bg-gradient-to-r ${getRankColor(entry.rank)}
-                    border-2 border-gold-400
-                    transition-all hover:scale-102 hover:shadow-md
+                    border border-gold-500/30
+                    transition-all hover:scale-102 hover:animate-glow-gold
+                    ${isLoaded ? `animate-slide-right ${getRowDelayClass(index)}` : 'opacity-0'}
                   `}
                 >
-                  <div className="text-3xl font-bold w-16 text-center">
+                  <div className={`text-3xl font-bold w-16 text-center ${index < 3 ? 'animate-bounce-in' : ''}`}>
                     {getRankEmoji(entry.rank)}
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-gold-900">{entry.address.slice(0, 6)}...{entry.address.slice(-4)}</span>
+                      <span className="font-bold text-gold-200">{entry.address.slice(0, 6)}...{entry.address.slice(-4)}</span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-2xl font-bold text-gold-900">{entry.winRate}%</div>
-                    <div className="text-xs text-gold-700">
+                    <div className="text-2xl font-bold metal-text animate-gold-shimmer">{entry.winRate}%</div>
+                    <div className="text-xs text-gold-400">
                       {entry.wins}W - {entry.losses}L
                     </div>
                   </div>
                 </div>
-              );
-            })}
+              ))
+            )}
           </div>
 
-          <div className="mt-6 text-center text-xs text-gold-600">
+          <div className={`mt-6 text-center text-xs text-gold-500 ${isLoaded ? 'animate-fade-in animation-delay-1000' : 'opacity-0'}`}>
             <p>Rankings updated every 5 minutes • Based on PvP matches only</p>
           </div>
         </div>
