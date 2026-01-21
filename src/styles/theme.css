@@ -1,16 +1,16 @@
 /* Leaf Green Theme Variables */
 :root {
   /* Primary Leaf Green Palette */
-  --leaf-50: #f0fdf4;
-  --leaf-100: #dcfce7;
-  --leaf-200: #bbf7d0;
-  --leaf-300: #86efac;
-  --leaf-400: #4ade80;
-  --leaf-500: #22c55e;
-  --leaf-600: #16a34a;
-  --leaf-700: #15803d;
-  --leaf-800: #166534;
-  --leaf-900: #14532d;
+  --gold-50: #f0fdf4;
+  --gold-100: #dcfce7;
+  --gold-200: #bbf7d0;
+  --gold-300: #86efac;
+  --gold-400: #4ade80;
+  --gold-500: #22c55e;
+  --gold-600: #16a34a;
+  --gold-700: #15803d;
+  --gold-800: #166534;
+  --gold-900: #14532d;
   
   /* Forest Accent Colors */
   --forest-light: #bbf7d0;
@@ -18,14 +18,14 @@
   --forest-dark: #14532d;
   
   /* Theme Semantics */
-  --theme-primary: var(--leaf-500);
-  --theme-primary-hover: var(--leaf-600);
-  --theme-secondary: var(--leaf-400);
-  --theme-background: var(--leaf-100);
-  --theme-surface: var(--leaf-50);
-  --theme-text: var(--leaf-800);
-  --theme-text-muted: var(--leaf-600);
-  --theme-border: var(--leaf-400);
+  --theme-primary: var(--gold-500);
+  --theme-primary-hover: var(--gold-600);
+  --theme-secondary: var(--gold-400);
+  --theme-background: var(--gold-100);
+  --theme-surface: var(--gold-50);
+  --theme-text: var(--gold-800);
+  --theme-text-muted: var(--gold-600);
+  --theme-border: var(--gold-400);
   --theme-accent: var(--forest-medium);
   
   /* Shadows with green tint */
@@ -38,9 +38,9 @@
 /* Dark mode overrides */
 @media (prefers-color-scheme: dark) {
   :root {
-    --theme-background: var(--leaf-900);
-    --theme-surface: var(--leaf-800);
-    --theme-text: var(--leaf-100);
-    --theme-text-muted: var(--leaf-300);
+    --theme-background: var(--gold-900);
+    --theme-surface: var(--gold-800);
+    --theme-text: var(--gold-100);
+    --theme-text-muted: var(--gold-300);
   }
 }
