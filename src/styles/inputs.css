@@ -2,48 +2,48 @@
 
 /* Text Input */
 .input-leaf {
-  @apply bg-leaf-50 border-2 border-leaf-300
-         focus:border-leaf-500 focus:ring-2 focus:ring-leaf-300
+  @apply bg-gold-50 border-2 border-gold-300
+         focus:border-gold-500 focus:ring-2 focus:ring-gold-300
          rounded-lg px-4 py-2
-         text-leaf-800 placeholder-leaf-400
+         text-gold-800 placeholder-gold-400
          outline-none transition-all;
 }
 
 /* Checkbox */
 .checkbox-leaf {
-  @apply w-5 h-5 accent-leaf-600
-         rounded border-leaf-400
-         focus:ring-2 focus:ring-leaf-300;
+  @apply w-5 h-5 accent-gold-600
+         rounded border-gold-400
+         focus:ring-2 focus:ring-gold-300;
 }
 
 /* Radio */
 .radio-leaf {
-  @apply w-5 h-5 accent-leaf-600
-         border-leaf-400
-         focus:ring-2 focus:ring-leaf-300;
+  @apply w-5 h-5 accent-gold-600
+         border-gold-400
+         focus:ring-2 focus:ring-gold-300;
 }
 
 /* Select */
 .select-leaf {
-  @apply bg-leaf-50 border-2 border-leaf-300
-         focus:border-leaf-500 focus:ring-2 focus:ring-leaf-300
+  @apply bg-gold-50 border-2 border-gold-300
+         focus:border-gold-500 focus:ring-2 focus:ring-gold-300
          rounded-lg px-4 py-2
-         text-leaf-800
+         text-gold-800
          outline-none transition-all
          cursor-pointer;
 }
 
 /* Range Slider */
 .range-leaf {
-  @apply w-full h-2 bg-leaf-200 rounded-lg
+  @apply w-full h-2 bg-gold-200 rounded-lg
          appearance-none cursor-pointer
-         accent-leaf-600;
+         accent-gold-600;
 }
 
 /* Toggle Switch */
 .toggle-leaf {
-  @apply relative w-12 h-6 bg-leaf-300
+  @apply relative w-12 h-6 bg-gold-300
          rounded-full cursor-pointer
          transition-colors
-         peer-checked:bg-leaf-600;
+         peer-checked:bg-gold-600;
 }
