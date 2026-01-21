@@ -1,52 +1,90 @@
-# Leaf Green Theme Documentation
+# Gold and Black Theme Documentation
 
 ## Overview
 
-The xTicTacToe application uses a fresh **Leaf Green** theme inspired by nature, evoking feelings of growth, freshness, and vitality.
+The xTicTacToe application uses a luxurious **Gold and Black** theme inspired by elegance, prestige, and premium gaming experiences.
 
 ## Color Palette
 
-### Primary Colors
+### Gold Colors
 | Name | Hex | Usage |
 |------|-----|-------|
-| leaf-50 | #f0fdf4 | Lightest backgrounds |
-| leaf-100 | #dcfce7 | Light backgrounds |
-| leaf-200 | #bbf7d0 | Subtle accents |
-| leaf-300 | #86efac | Secondary elements |
-| leaf-400 | #4ade80 | Borders, icons |
-| leaf-500 | #22c55e | Primary accent |
-| leaf-600 | #16a34a | Hover states |
-| leaf-700 | #15803d | Active states |
-| leaf-800 | #166534 | Text |
-| leaf-900 | #14532d | Dark backgrounds |
+| gold-50 | #fffef7 | Lightest gold tint |
+| gold-100 | #fffbeb | Light backgrounds |
+| gold-200 | #fef3c7 | Subtle accents |
+| gold-300 | #fde68a | Secondary elements |
+| gold-400 | #fcd34d | Primary text, icons |
+| gold-500 | #f59e0b | Primary accent |
+| gold-600 | #d97706 | Hover states |
+| gold-700 | #b45309 | Active states |
+| gold-800 | #92400e | Dark gold accents |
+| gold-900 | #713f12 | Darkest gold |
 
-### Forest Accent Colors
+### Obsidian Colors (Black)
 | Name | Hex | Usage |
 |------|-----|-------|
-| forest-light | #bbf7d0 | Light accents |
-| forest-medium | #22c55e | Primary green |
-| forest-dark | #14532d | Dark elements |
+| obsidian-50 | #18181b | Primary dark background |
+| obsidian-100 | #27272a | Card backgrounds |
+| obsidian-200 | #3f3f46 | Elevated surfaces |
+| obsidian-300 | #52525b | Borders |
+| obsidian-400 | #71717a | Muted elements |
+| obsidian-500 | #a1a1aa | Secondary text |
+
+### Royal Accent Colors
+| Name | Hex | Usage |
+|------|-----|-------|
+| royal-light | #fef3c7 | Light gold accents |
+| royal-medium | #f59e0b | Primary gold |
+| royal-dark | #713f12 | Dark gold elements |
 
 ## Usage Examples
 
 ### Backgrounds
-- Primary: `from-leaf-100 via-leaf-200 to-leaf-300`
+- Primary: `from-obsidian-900 via-obsidian-800 to-obsidian-900`
 
 ### Cards
-- Default: `from-leaf-50 to-leaf-100 border-leaf-400`
+- Default: Use `metal-card` class for consistent styling
 
 ### Buttons
-- Primary: `from-leaf-500 to-leaf-600`
+- Primary: Use `metal-btn` class with gold gradient
 
-## Animations
+### Text
+- Primary: `text-gold-400` for main text on dark backgrounds
+- Secondary: `text-gold-500` for muted text
 
-- `animate-glow-pulse`: Green glowing effect for active elements
-- `animate-leaf-sway`: Subtle swaying motion
-- `animate-forest-shimmer`: Shimmer effect with green tint
+## Animation Classes
+
+### Entrance Animations
+- `animate-fade-in`: Smooth fade in effect
+- `animate-slide-up`: Slide up from below
+- `animate-slide-down`: Slide down from above
+- `animate-slide-right`: Slide in from left
+- `animate-scale-in`: Scale up effect
+- `animate-bounce-in`: Bouncy entrance
+
+### Effect Animations
+- `animate-gold-glow`: Pulsing gold glow effect
+- `animate-glow-pulse`: Button glow animation
+- `animate-gold-shimmer`: Sweeping shimmer effect
+- `animate-shake`: Error/attention shake
+- `animate-wiggle`: Playful wiggle motion
+- `animate-heartbeat`: Pulsing heartbeat
+- `animate-tada`: Celebration effect
+
+## Metal Component Classes
+
+- `metal-card`: Dark card with gold border and gradient
+- `metal-btn`: Gold button with hover effects
+- `metal-cell`: Game board cell styling
+- `metal-text`: Gold gradient text effect
+- `metal-stats`: Statistics display box
+- `metal-badge`: Badge with gold accent
+- `metal-spinner`: Loading spinner
 
 ## Best Practices
 
-1. Use leaf-800 for primary text
-2. Use leaf-600 for secondary/muted text
-3. Use gradients for visual depth
-4. Apply animate-glow-pulse sparingly
+1. Use gold-400 for primary text on dark backgrounds
+2. Use obsidian-100/200 for card backgrounds
+3. Apply animate-glow-pulse to important action buttons
+4. Use staggered animation delays for list items
+5. Combine fade-in with slide animations for smooth entrances
