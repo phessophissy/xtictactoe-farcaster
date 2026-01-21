@@ -1,59 +1,59 @@
 /* Leaf Green Typography Styles */
 
 /* Headings */
-.text-leaf-h1 {
-  @apply text-4xl font-bold text-leaf-800;
+.text-gold-h1 {
+  @apply text-4xl font-bold text-gold-800;
 }
 
-.text-leaf-h2 {
-  @apply text-3xl font-bold text-leaf-800;
+.text-gold-h2 {
+  @apply text-3xl font-bold text-gold-800;
 }
 
-.text-leaf-h3 {
-  @apply text-2xl font-semibold text-leaf-700;
+.text-gold-h3 {
+  @apply text-2xl font-semibold text-gold-700;
 }
 
-.text-leaf-h4 {
-  @apply text-xl font-semibold text-leaf-700;
+.text-gold-h4 {
+  @apply text-xl font-semibold text-gold-700;
 }
 
 /* Body Text */
-.text-leaf-body {
-  @apply text-base text-leaf-700;
+.text-gold-body {
+  @apply text-base text-gold-700;
 }
 
-.text-leaf-body-sm {
-  @apply text-sm text-leaf-600;
+.text-gold-body-sm {
+  @apply text-sm text-gold-600;
 }
 
 /* Muted Text */
-.text-leaf-muted {
-  @apply text-leaf-500;
+.text-gold-muted {
+  @apply text-gold-500;
 }
 
 /* Emphasized Text */
-.text-leaf-emphasis {
-  @apply font-semibold text-leaf-800;
+.text-gold-emphasis {
+  @apply font-semibold text-gold-800;
 }
 
 /* Link Text */
-.text-leaf-link {
-  @apply text-leaf-600 hover:text-leaf-700
+.text-gold-link {
+  @apply text-gold-600 hover:text-gold-700
          underline cursor-pointer transition-colors;
 }
 
 /* Label Text */
-.text-leaf-label {
-  @apply text-sm font-medium text-leaf-600 uppercase tracking-wide;
+.text-gold-label {
+  @apply text-sm font-medium text-gold-600 uppercase tracking-wide;
 }
 
 /* Caption Text */
-.text-leaf-caption {
-  @apply text-xs text-leaf-500;
+.text-gold-caption {
+  @apply text-xs text-gold-500;
 }
 
 /* Gradient Text */
-.text-leaf-gradient {
-  @apply bg-gradient-to-r from-leaf-600 to-leaf-400
+.text-gold-gradient {
+  @apply bg-gradient-to-r from-gold-600 to-gold-400
          bg-clip-text text-transparent;
 }
