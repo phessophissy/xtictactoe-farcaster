@@ -6,51 +6,51 @@
 }
 
 /* Success Alert */
-.alert-leaf-success {
-  @apply bg-leaf-100 border-leaf-400 text-leaf-800;
+.alert-gold-success {
+  @apply bg-gold-100 border-gold-400 text-gold-800;
 }
 
 /* Info Alert */
-.alert-leaf-info {
-  @apply bg-leaf-50 border-leaf-300 text-leaf-700;
+.alert-gold-info {
+  @apply bg-gold-50 border-gold-300 text-gold-700;
 }
 
 /* Warning Alert */
-.alert-leaf-warning {
+.alert-gold-warning {
   @apply bg-yellow-50 border-yellow-400 text-yellow-800;
 }
 
 /* Error Alert */
-.alert-leaf-error {
+.alert-gold-error {
   @apply bg-red-50 border-red-400 text-red-800;
 }
 
 /* Toast Notification */
 .toast-leaf {
   @apply fixed bottom-4 right-4 p-4 rounded-xl
-         bg-leaf-600 text-white shadow-xl
+         bg-gold-600 text-white shadow-xl
          transform transition-all duration-300
          animate-bounce-in-green;
 }
 
 /* Game Result Alert */
-.alert-leaf-winner {
+.alert-gold-winner {
   @apply p-6 rounded-2xl
-         bg-gradient-to-r from-leaf-400 to-leaf-500
+         bg-gradient-to-r from-gold-400 to-gold-500
          text-white text-center font-bold
          shadow-2xl animate-glow-pulse;
 }
 
 /* Game Result - Loss */
-.alert-leaf-loss {
+.alert-gold-loss {
   @apply p-6 rounded-2xl
-         bg-leaf-200 text-leaf-700 text-center font-semibold
+         bg-gold-200 text-gold-700 text-center font-semibold
          shadow-lg;
 }
 
 /* Game Result - Draw */
-.alert-leaf-draw {
+.alert-gold-draw {
   @apply p-6 rounded-2xl
-         bg-leaf-300 text-leaf-800 text-center font-semibold
+         bg-gold-300 text-gold-800 text-center font-semibold
          shadow-lg;
 }
