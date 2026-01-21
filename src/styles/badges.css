@@ -1,7 +1,7 @@
 /* Leaf Green Badge Styles */
 
 /* Primary Badge */
-.badge-leaf {
+.badge-gold {
   @apply inline-flex items-center px-3 py-1
          bg-gold-200 text-gold-700
          text-sm font-medium rounded-full;
