@@ -1,7 +1,7 @@
 /* Leaf Green Divider Styles */
 
 /* Horizontal Divider */
-.divider-leaf {
+.divider-gold {
   @apply border-t border-gold-300 my-4;
 }
 
