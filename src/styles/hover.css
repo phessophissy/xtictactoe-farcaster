@@ -2,7 +2,7 @@
 
 /* Hover Background */
 .hover-bg-leaf {
-  @apply hover:bg-leaf-100 transition-colors;
+  @apply hover:bg-gold-100 transition-colors;
 }
 
 /* Hover Scale */
@@ -26,12 +26,12 @@
 
 /* Hover Border */
 .hover-border-leaf {
-  @apply hover:border-leaf-500 transition-colors;
+  @apply hover:border-gold-500 transition-colors;
 }
 
 /* Hover Text */
 .hover-text-leaf {
-  @apply hover:text-leaf-600 transition-colors;
+  @apply hover:text-gold-600 transition-colors;
 }
 
 /* Hover Underline */
@@ -41,7 +41,7 @@
 
 .hover-underline-leaf::after {
   @apply absolute bottom-0 left-0 w-0 h-0.5 
-         bg-leaf-500 transition-all duration-300;
+         bg-gold-500 transition-all duration-300;
   content: '';
 }
 
