@@ -3,51 +3,51 @@
 /* Primary Badge */
 .badge-leaf {
   @apply inline-flex items-center px-3 py-1
-         bg-leaf-200 text-leaf-700
+         bg-gold-200 text-gold-700
          text-sm font-medium rounded-full;
 }
 
 /* Success Badge */
-.badge-leaf-success {
+.badge-gold-success {
   @apply inline-flex items-center px-3 py-1
-         bg-leaf-500 text-white
+         bg-gold-500 text-white
          text-sm font-semibold rounded-full;
 }
 
 /* Winner Badge */
-.badge-leaf-winner {
+.badge-gold-winner {
   @apply inline-flex items-center px-4 py-2
-         bg-gradient-to-r from-leaf-400 to-leaf-500
+         bg-gradient-to-r from-gold-400 to-gold-500
          text-white text-sm font-bold rounded-full
          shadow-lg animate-glow-pulse;
 }
 
 /* Rank Badge */
-.badge-leaf-rank {
+.badge-gold-rank {
   @apply inline-flex items-center justify-center
-         w-8 h-8 bg-leaf-600 text-white
+         w-8 h-8 bg-gold-600 text-white
          text-sm font-bold rounded-full shadow;
 }
 
 /* Status Badge - Online */
-.badge-leaf-online {
+.badge-gold-online {
   @apply inline-flex items-center px-2 py-1
-         bg-leaf-400 text-white
+         bg-gold-400 text-white
          text-xs font-medium rounded-full;
 }
 
 /* Status Badge - Waiting */
-.badge-leaf-waiting {
+.badge-gold-waiting {
   @apply inline-flex items-center px-2 py-1
-         bg-leaf-300 text-leaf-800
+         bg-gold-300 text-gold-800
          text-xs font-medium rounded-full
          animate-pulse;
 }
 
 /* Count Badge */
-.badge-leaf-count {
+.badge-gold-count {
   @apply inline-flex items-center justify-center
          min-w-[20px] h-5 px-1.5
-         bg-leaf-600 text-white
+         bg-gold-600 text-white
          text-xs font-bold rounded-full;
 }
