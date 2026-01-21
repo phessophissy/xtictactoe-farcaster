@@ -1,7 +1,7 @@
 /* Leaf Green Theme Animations */
 
 /* Subtle leaf sway animation */
-@keyframes leaf-sway {
+@keyframes gold-sway {
   0%, 100% { transform: rotate(-2deg) translateX(0); }
   25% { transform: rotate(1deg) translateX(2px); }
   50% { transform: rotate(-1deg) translateX(-1px); }
@@ -28,7 +28,7 @@
 }
 
 /* Leaf fall animation */
-@keyframes leaf-fall {
+@keyframes gold-fall {
   0% { 
     transform: translateY(-100%) rotate(0deg);
     opacity: 0;
@@ -60,8 +60,8 @@
 }
 
 /* Utility classes */
-.animate-leaf-sway {
-  animation: leaf-sway 4s ease-in-out infinite;
+.animate-gold-sway {
+  animation: gold-sway 4s ease-in-out infinite;
 }
 
 .animate-green-glow {
@@ -79,8 +79,8 @@
   animation: forest-shimmer 2s linear infinite;
 }
 
-.animate-leaf-fall {
-  animation: leaf-fall 10s linear infinite;
+.animate-gold-fall {
+  animation: gold-fall 10s linear infinite;
 }
 
 .animate-bounce-in-green {
