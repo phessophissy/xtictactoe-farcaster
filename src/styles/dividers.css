@@ -2,46 +2,46 @@
 
 /* Horizontal Divider */
 .divider-leaf {
-  @apply border-t border-leaf-300 my-4;
+  @apply border-t border-gold-300 my-4;
 }
 
 /* Thick Divider */
-.divider-leaf-thick {
-  @apply border-t-2 border-leaf-400 my-6;
+.divider-gold-thick {
+  @apply border-t-2 border-gold-400 my-6;
 }
 
 /* Gradient Divider */
-.divider-leaf-gradient {
+.divider-gold-gradient {
   @apply h-px my-4 bg-gradient-to-r 
-         from-transparent via-leaf-400 to-transparent;
+         from-transparent via-gold-400 to-transparent;
 }
 
 /* Vertical Divider */
-.divider-leaf-vertical {
-  @apply border-l border-leaf-300 mx-4 h-full;
+.divider-gold-vertical {
+  @apply border-l border-gold-300 mx-4 h-full;
 }
 
 /* Dashed Divider */
-.divider-leaf-dashed {
-  @apply border-t border-dashed border-leaf-400 my-4;
+.divider-gold-dashed {
+  @apply border-t border-dashed border-gold-400 my-4;
 }
 
 /* With Text Divider */
-.divider-leaf-text {
+.divider-gold-text {
   @apply flex items-center my-4;
 }
 
-.divider-leaf-text::before,
-.divider-leaf-text::after {
-  @apply flex-1 border-t border-leaf-300;
+.divider-gold-text::before,
+.divider-gold-text::after {
+  @apply flex-1 border-t border-gold-300;
   content: '';
 }
 
-.divider-leaf-text span {
-  @apply px-4 text-leaf-600 text-sm;
+.divider-gold-text span {
+  @apply px-4 text-gold-600 text-sm;
 }
 
 /* Section Divider */
-.divider-leaf-section {
-  @apply border-t-4 border-leaf-400 my-8;
+.divider-gold-section {
+  @apply border-t-4 border-gold-400 my-8;
 }
