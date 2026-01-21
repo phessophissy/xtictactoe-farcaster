@@ -1,60 +1,60 @@
 /* Leaf Green Hover Effect Styles */
 
 /* Hover Background */
-.hover-bg-leaf {
+.hover-bg-gold {
   @apply hover:bg-gold-100 transition-colors;
 }
 
 /* Hover Scale */
-.hover-scale-leaf {
+.hover-scale-gold {
   @apply hover:scale-105 transition-transform;
 }
 
 /* Hover Lift */
-.hover-lift-leaf {
+.hover-lift-gold {
   @apply hover:-translate-y-1 hover:shadow-lg transition-all;
 }
 
 /* Hover Glow */
-.hover-glow-leaf {
+.hover-glow-gold {
   @apply transition-shadow;
 }
 
-.hover-glow-leaf:hover {
+.hover-glow-gold:hover {
   box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
 }
 
 /* Hover Border */
-.hover-border-leaf {
+.hover-border-gold {
   @apply hover:border-gold-500 transition-colors;
 }
 
 /* Hover Text */
-.hover-text-leaf {
+.hover-text-gold {
   @apply hover:text-gold-600 transition-colors;
 }
 
 /* Hover Underline */
-.hover-underline-leaf {
+.hover-underline-gold {
   @apply relative;
 }
 
-.hover-underline-leaf::after {
+.hover-underline-gold::after {
   @apply absolute bottom-0 left-0 w-0 h-0.5 
          bg-gold-500 transition-all duration-300;
   content: '';
 }
 
-.hover-underline-leaf:hover::after {
+.hover-underline-gold:hover::after {
   @apply w-full;
 }
 
 /* Hover Brighten */
-.hover-brighten-leaf {
+.hover-brighten-gold {
   @apply hover:brightness-110 transition-all;
 }
 
 /* Hover Rotate */
-.hover-rotate-leaf {
+.hover-rotate-gold {
   @apply hover:rotate-3 transition-transform;
 }
