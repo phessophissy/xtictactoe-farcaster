@@ -1,11 +1,11 @@
 /* Leaf Green Tooltip Styles */
 
 /* Base Tooltip */
-.tooltip-leaf {
+.tooltip-gold {
   @apply relative;
 }
 
-.tooltip-leaf::after {
+.tooltip-gold::after {
   @apply absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2
          px-3 py-1 bg-gold-800 text-white text-sm rounded-lg
          opacity-0 invisible transition-all duration-200
@@ -13,19 +13,19 @@
   content: attr(data-tooltip);
 }
 
-.tooltip-leaf:hover::after {
+.tooltip-gold:hover::after {
   @apply opacity-100 visible;
 }
 
 /* Tooltip Arrow */
-.tooltip-leaf::before {
+.tooltip-gold::before {
   @apply absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1
          border-4 border-transparent border-t-gold-800
          opacity-0 invisible transition-all duration-200;
   content: '';
 }
 
-.tooltip-leaf:hover::before {
+.tooltip-gold:hover::before {
   @apply opacity-100 visible;
 }
 
