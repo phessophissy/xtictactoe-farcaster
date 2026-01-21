@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { GameMode, AIDifficulty } from '@/utils/game';
 import { soundManager, vibrateClick } from '@/utils/sound';
 
@@ -10,6 +11,12 @@ interface ModeSelectorProps {
 }
 
 export default function ModeSelector({ onSelectMode, difficulty, onDifficultyChange }: ModeSelectorProps) {
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
+
   const handleModeSelect = (mode: GameMode) => {
     soundManager.playClick();
     vibrateClick();
@@ -28,18 +35,18 @@ export default function ModeSelector({ onSelectMode, difficulty, onDifficultyCha
   const difficultyLabels = ['Easy', 'Medium', 'Hard'];
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-gold-100 via-gold-200 to-gold-300">
-      <div className="w-full max-w-md">
-        <div className="bg-gradient-to-br from-gold-50 to-gold-100 rounded-2xl shadow-2xl p-8 border-4 border-gold-400">
-          <h1 className="text-4xl font-bold text-center mb-2 text-gold-800 drop-shadow-md">
+    <div className={`min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-obsidian-50 via-obsidian-100 to-obsidian-200 ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`}>
+      <div className={`w-full max-w-md ${isLoaded ? 'animate-slide-up' : 'opacity-0'}`}>
+        <div className="metal-card p-8 animate-glow-gold">
+          <h1 className="text-4xl font-bold text-center mb-2 metal-text animate-gold-shimmer drop-shadow-md">
             xTicTacToe
           </h1>
-          <p className="text-center text-gold-600 mb-8">Choose Your Battle</p>
+          <p className="text-center text-gold-400 mb-8 animate-fade-in animation-delay-200">Choose Your Battle</p>
 
           <div className="space-y-4 mb-8">
             <button
               onClick={() => handleModeSelect('ai')}
-              className="w-full bg-gradient-to-r from-gold-400 to-gold-500 hover:from-gold-500 hover:to-gold-600 text-white font-bold py-6 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 border-2 border-gold-600"
+              className={`w-full metal-btn py-6 px-6 hover:animate-wiggle ${isLoaded ? 'animate-scale-in animation-delay-300' : 'opacity-0'}`}
             >
               <div className="text-2xl mb-1">🤖 AI Mode</div>
               <div className="text-sm opacity-90">Free Practice</div>
@@ -47,15 +54,15 @@ export default function ModeSelector({ onSelectMode, difficulty, onDifficultyCha
 
             <button
               onClick={() => handleModeSelect('pvp')}
-              className="w-full bg-gradient-to-r from-gold-600 to-gold-700 hover:from-gold-700 hover:to-gold-800 text-white font-bold py-6 px-6 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 border-2 border-gold-800 animate-glow-pulse"
+              className={`w-full metal-btn py-6 px-6 animate-glow-gold hover:animate-heartbeat ${isLoaded ? 'animate-scale-in animation-delay-500' : 'opacity-0'}`}
             >
               <div className="text-2xl mb-1">⚔️ PvP Mode</div>
               <div className="text-sm opacity-90">$1 USDC Entry</div>
             </button>
           </div>
 
-          <div className="bg-gold-200 rounded-xl p-6 border-2 border-gold-300">
-            <label className="block text-gold-800 font-semibold mb-4 text-center">
+          <div className={`metal-stats animate-glow-gold ${isLoaded ? 'animate-slide-up animation-delay-700' : 'opacity-0'}`}>
+            <label className="block text-gold-300 font-semibold mb-4 text-center metal-text">
               AI Difficulty
             </label>
             <input
@@ -64,16 +71,13 @@ export default function ModeSelector({ onSelectMode, difficulty, onDifficultyCha
               max="2"
               value={difficultyValue}
               onChange={handleDifficultyChange}
-              className="w-full h-3 bg-gold-300 rounded-lg appearance-none cursor-pointer slider"
-              style={{
-                background: `linear-gradient(to right, #22c55e 0%, #22c55e ${difficultyValue * 50}%, #bbf7d0 ${difficultyValue * 50}%, #bbf7d0 100%)`
-              }}
+              className="w-full h-3 rounded-lg appearance-none cursor-pointer"
             />
-            <div className="flex justify-between mt-2 text-sm text-gold-700">
+            <div className="flex justify-between mt-2 text-sm text-gold-400">
               {difficultyLabels.map((label, idx) => (
                 <span
                   key={label}
-                  className={`font-medium ${idx === difficultyValue ? 'text-gold-900 font-bold' : ''}`}
+                  className={`font-medium transition-all duration-300 ${idx === difficultyValue ? 'text-gold-200 font-bold animate-gold-shimmer scale-110' : ''}`}
                 >
                   {label}
                 </span>
@@ -81,7 +85,7 @@ export default function ModeSelector({ onSelectMode, difficulty, onDifficultyCha
             </div>
           </div>
 
-          <div className="mt-6 text-center text-xs text-gold-600">
+          <div className={`mt-6 text-center text-xs text-gold-500 ${isLoaded ? 'animate-fade-in animation-delay-900' : 'opacity-0'}`}>
             <p>PvP: Winner takes 1.70 USDC • Creator fee: 0.30 USDC</p>
           </div>
         </div>
