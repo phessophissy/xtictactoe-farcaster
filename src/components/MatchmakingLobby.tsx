@@ -159,22 +159,22 @@ export default function MatchmakingLobby({ onBack, onGameStart }: MatchmakingLob
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-leaf-100 via-leaf-200 to-leaf-300">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-gold-100 via-gold-200 to-gold-300">
       <div className="w-full max-w-4xl">
-        <div className="bg-gradient-to-br from-leaf-50 to-leaf-100 rounded-2xl shadow-2xl p-8 border-4 border-leaf-400">
+        <div className="bg-gradient-to-br from-gold-50 to-gold-100 rounded-2xl shadow-2xl p-8 border-4 border-gold-400">
           <div className="flex justify-between items-center mb-6">
             <button
               onClick={onBack}
-              className="bg-leaf-300 hover:bg-leaf-400 text-leaf-800 font-bold py-2 px-4 rounded-lg transition-colors"
+              className="bg-gold-300 hover:bg-gold-400 text-gold-800 font-bold py-2 px-4 rounded-lg transition-colors"
             >
               ← Back
             </button>
-            <h2 className="text-2xl font-bold text-leaf-800">🎮 Matchmaking Lobby</h2>
+            <h2 className="text-2xl font-bold text-gold-800">🎮 Matchmaking Lobby</h2>
             <div className="flex items-center gap-2">
-              <span className="text-sm text-leaf-700">Open Games: {openGames.length}</span>
+              <span className="text-sm text-gold-700">Open Games: {openGames.length}</span>
               <button
                 onClick={() => setRefreshTrigger(prev => prev + 1)}
-                className="bg-leaf-200 hover:bg-leaf-300 text-leaf-800 p-2 rounded-lg transition-colors"
+                className="bg-gold-200 hover:bg-gold-300 text-gold-800 p-2 rounded-lg transition-colors"
               >
                 🔄
               </button>
@@ -183,29 +183,29 @@ export default function MatchmakingLobby({ onBack, onGameStart }: MatchmakingLob
 
           {isWrongNetwork ? (
             <div className="text-center py-8">
-              <p className="text-leaf-700 mb-4">Please switch to Base network to play</p>
+              <p className="text-gold-700 mb-4">Please switch to Base network to play</p>
               <button
                 onClick={() => switchChain({ chainId: 8453 })}
-                className="bg-leaf-500 hover:bg-leaf-600 text-white font-bold py-3 px-6 rounded-lg transition-colors"
+                className="bg-gold-500 hover:bg-gold-600 text-white font-bold py-3 px-6 rounded-lg transition-colors"
               >
                 Switch to Base
               </button>
             </div>
           ) : !address ? (
             <div className="text-center py-8">
-              <p className="text-leaf-700">Connect your wallet to play</p>
+              <p className="text-gold-700">Connect your wallet to play</p>
             </div>
           ) : (
             <>
-              <div className="mb-6 p-4 bg-leaf-200 rounded-lg border-2 border-leaf-300">
+              <div className="mb-6 p-4 bg-gold-200 rounded-lg border-2 border-gold-300">
                 <div className="flex justify-between items-center">
                   <div>
-                    <p className="text-leaf-800 font-semibold">Your Balance:</p>
-                    <p className="text-2xl font-bold text-leaf-900">{formatUnits(balance, 6)} USDC</p>
+                    <p className="text-gold-800 font-semibold">Your Balance:</p>
+                    <p className="text-2xl font-bold text-gold-900">{formatUnits(balance, 6)} USDC</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-leaf-700 text-sm">Entry Fee: 1 USDC</p>
-                    <p className="text-leaf-700 text-sm">Prize: 1.70 USDC</p>
+                    <p className="text-gold-700 text-sm">Entry Fee: 1 USDC</p>
+                    <p className="text-gold-700 text-sm">Prize: 1.70 USDC</p>
                   </div>
                 </div>
               </div>
@@ -216,11 +216,11 @@ export default function MatchmakingLobby({ onBack, onGameStart }: MatchmakingLob
                 </div>
               ) : !hasApproval ? (
                 <div className="text-center py-4 mb-6">
-                  <p className="text-leaf-700 mb-4">Approve USDC spending to create or join games</p>
+                  <p className="text-gold-700 mb-4">Approve USDC spending to create or join games</p>
                   <button
                     onClick={handleApprove}
                     disabled={isApproving}
-                    className="bg-leaf-500 hover:bg-leaf-600 text-white font-bold py-3 px-8 rounded-lg transition-colors disabled:opacity-50"
+                    className="bg-gold-500 hover:bg-gold-600 text-white font-bold py-3 px-8 rounded-lg transition-colors disabled:opacity-50"
                   >
                     {isApproving ? 'Approving...' : 'Approve USDC'}
                   </button>
@@ -231,32 +231,32 @@ export default function MatchmakingLobby({ onBack, onGameStart }: MatchmakingLob
                     <button
                       onClick={handleCreateOpenGame}
                       disabled={isCreating}
-                      className="w-full bg-gradient-to-r from-leaf-500 to-leaf-600 hover:from-leaf-600 hover:to-leaf-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all disabled:opacity-50 animate-glow-pulse"
+                      className="w-full bg-gradient-to-r from-gold-500 to-gold-600 hover:from-gold-600 hover:to-gold-700 text-white font-bold py-4 px-6 rounded-xl shadow-lg transition-all disabled:opacity-50 animate-glow-pulse"
                     >
                       {isCreating ? 'Creating Game...' : '🎮 Create New Game'}
                     </button>
                   </div>
 
                   <div className="space-y-3 max-h-[400px] overflow-y-auto">
-                    <h3 className="text-lg font-bold text-leaf-800 mb-3">Open Games</h3>
+                    <h3 className="text-lg font-bold text-gold-800 mb-3">Open Games</h3>
                     {openGames.length === 0 ? (
-                      <p className="text-center text-leaf-600 py-8">No open games. Create one!</p>
+                      <p className="text-center text-gold-600 py-8">No open games. Create one!</p>
                     ) : (
                       openGames.map((game) => (
                         <div
                           key={game.gameId.toString()}
-                          className="flex items-center justify-between p-4 bg-leaf-200 rounded-lg border-2 border-leaf-300"
+                          className="flex items-center justify-between p-4 bg-gold-200 rounded-lg border-2 border-gold-300"
                         >
                           <div>
-                            <p className="font-bold text-leaf-800">Game #{game.gameId.toString()}</p>
-                            <p className="text-sm text-leaf-600">
+                            <p className="font-bold text-gold-800">Game #{game.gameId.toString()}</p>
+                            <p className="text-sm text-gold-600">
                               Creator: {game.player1.slice(0, 6)}...{game.player1.slice(-4)}
                             </p>
                           </div>
                           <button
                             onClick={() => handleJoinGame(game.gameId)}
                             disabled={isJoining || game.player1.toLowerCase() === address?.toLowerCase()}
-                            className="bg-leaf-500 hover:bg-leaf-600 text-white font-bold py-2 px-6 rounded-lg transition-colors disabled:opacity-50"
+                            className="bg-gold-500 hover:bg-gold-600 text-white font-bold py-2 px-6 rounded-lg transition-colors disabled:opacity-50"
                           >
                             {isJoining ? 'Joining...' : game.player1.toLowerCase() === address?.toLowerCase() ? 'Your Game' : 'Join'}
                           </button>
@@ -269,7 +269,7 @@ export default function MatchmakingLobby({ onBack, onGameStart }: MatchmakingLob
             </>
           )}
 
-          <div className="mt-6 text-center text-xs text-leaf-600">
+          <div className="mt-6 text-center text-xs text-gold-600">
             <p>Games are played on Base • Smart contract secured</p>
           </div>
         </div>
