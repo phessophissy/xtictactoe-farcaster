@@ -1,7 +1,7 @@
 /* Leaf Green Avatar Styles */
 
 /* Base Avatar */
-.avatar-leaf {
+.avatar-gold {
   @apply w-10 h-10 rounded-full 
          bg-gold-200 border-2 border-gold-400
          flex items-center justify-center
@@ -42,7 +42,7 @@
   @apply flex -space-x-3;
 }
 
-.avatar-gold-group .avatar-leaf {
+.avatar-gold-group .avatar-gold {
   @apply border-2 border-white;
 }
 
