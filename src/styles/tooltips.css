@@ -7,7 +7,7 @@
 
 .tooltip-leaf::after {
   @apply absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2
-         px-3 py-1 bg-leaf-800 text-white text-sm rounded-lg
+         px-3 py-1 bg-gold-800 text-white text-sm rounded-lg
          opacity-0 invisible transition-all duration-200
          whitespace-nowrap z-50;
   content: attr(data-tooltip);
@@ -20,7 +20,7 @@
 /* Tooltip Arrow */
 .tooltip-leaf::before {
   @apply absolute bottom-full left-1/2 transform -translate-x-1/2 mb-1
-         border-4 border-transparent border-t-leaf-800
+         border-4 border-transparent border-t-gold-800
          opacity-0 invisible transition-all duration-200;
   content: '';
 }
@@ -30,21 +30,21 @@
 }
 
 /* Tooltip Positions */
-.tooltip-leaf-bottom::after {
+.tooltip-gold-bottom::after {
   @apply bottom-auto top-full mt-2 mb-0;
 }
 
-.tooltip-leaf-left::after {
+.tooltip-gold-left::after {
   @apply bottom-auto left-auto right-full top-1/2 
          transform -translate-y-1/2 mr-2;
 }
 
-.tooltip-leaf-right::after {
+.tooltip-gold-right::after {
   @apply bottom-auto right-auto left-full top-1/2 
          transform -translate-y-1/2 ml-2;
 }
 
 /* Light Tooltip */
-.tooltip-leaf-light::after {
-  @apply bg-leaf-100 text-leaf-800 border border-leaf-300;
+.tooltip-gold-light::after {
+  @apply bg-gold-100 text-gold-800 border border-gold-300;
 }
