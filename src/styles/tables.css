@@ -7,46 +7,46 @@
 
 /* Table Header */
 .table-leaf thead {
-  @apply bg-leaf-200;
+  @apply bg-gold-200;
 }
 
 .table-leaf th {
-  @apply px-4 py-3 text-left text-leaf-700 
+  @apply px-4 py-3 text-left text-gold-700 
          font-semibold text-sm uppercase tracking-wide
-         border-b-2 border-leaf-400;
+         border-b-2 border-gold-400;
 }
 
 /* Table Body */
 .table-leaf tbody tr {
-  @apply border-b border-leaf-200
-         hover:bg-leaf-50 transition-colors;
+  @apply border-b border-gold-200
+         hover:bg-gold-50 transition-colors;
 }
 
 .table-leaf td {
-  @apply px-4 py-3 text-leaf-700;
+  @apply px-4 py-3 text-gold-700;
 }
 
 /* Striped Table */
-.table-leaf-striped tbody tr:nth-child(even) {
-  @apply bg-leaf-50;
+.table-gold-striped tbody tr:nth-child(even) {
+  @apply bg-gold-50;
 }
 
 /* Leaderboard Table */
-.table-leaf-leaderboard {
-  @apply bg-leaf-50 rounded-xl overflow-hidden;
+.table-gold-leaderboard {
+  @apply bg-gold-50 rounded-xl overflow-hidden;
 }
 
-.table-leaf-leaderboard th {
-  @apply bg-leaf-300 text-leaf-800;
+.table-gold-leaderboard th {
+  @apply bg-gold-300 text-gold-800;
 }
 
-.table-leaf-leaderboard tr:first-child td {
-  @apply bg-gradient-to-r from-leaf-400 to-leaf-500
+.table-gold-leaderboard tr:first-child td {
+  @apply bg-gradient-to-r from-gold-400 to-gold-500
          text-white font-bold;
 }
 
 /* Compact Table */
-.table-leaf-compact th,
-.table-leaf-compact td {
+.table-gold-compact th,
+.table-gold-compact td {
   @apply px-2 py-2 text-sm;
 }
