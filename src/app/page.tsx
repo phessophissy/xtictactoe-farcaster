@@ -57,7 +57,7 @@ export default function Home() {
       <div className="fixed top-4 right-4 z-50 flex gap-2">
         <button
           onClick={toggleSound}
-          className="bg-leaf-400 hover:bg-leaf-500 text-white font-bold p-3 rounded-lg shadow-lg transition-all"
+          className="bg-gold-400 hover:bg-gold-500 text-white font-bold p-3 rounded-lg shadow-lg transition-all"
           title={soundEnabled ? 'Mute' : 'Unmute'}
         >
           {soundEnabled ? '🔊' : '🔇'}
@@ -65,7 +65,7 @@ export default function Home() {
         {screen === 'menu' && (
           <button
             onClick={showLeaderboard}
-            className="bg-leaf-400 hover:bg-leaf-500 text-white font-bold p-3 rounded-lg shadow-lg transition-all"
+            className="bg-gold-400 hover:bg-gold-500 text-white font-bold p-3 rounded-lg shadow-lg transition-all"
             title="Leaderboard"
           >
             🏆
