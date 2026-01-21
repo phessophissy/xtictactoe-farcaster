@@ -1,12 +1,14 @@
-// Leaf Green Theme Type Definitions
+// Gold and Black Theme Type Definitions
 
-export type LeafShade = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+export type GoldShade = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
+export type ObsidianShade = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900;
 
-export type ForestVariant = 'light' | 'medium' | 'dark';
+export type RoyalVariant = 'light' | 'medium' | 'dark';
 
 export interface ThemeColors {
-  leaf: Record<LeafShade, string>;
-  forest: Record<ForestVariant, string>;
+  gold: Record<GoldShade, string>;
+  obsidian: Record<ObsidianShade, string>;
+  royal: Record<RoyalVariant, string>;
 }
 
 export interface ThemeConfig {
@@ -37,3 +39,7 @@ export interface ComponentProps {
   className?: string;
   children?: React.ReactNode;
 }
+
+// Legacy type aliases for backward compatibility
+export type LeafShade = GoldShade;
+export type ForestVariant = RoyalVariant;
