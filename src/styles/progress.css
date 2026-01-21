@@ -1,7 +1,7 @@
 /* Leaf Green Progress Styles */
 
 /* Progress Bar Container */
-.progress-leaf {
+.progress-gold {
   @apply w-full h-4 bg-gold-200 rounded-full overflow-hidden;
 }
 
