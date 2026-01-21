@@ -3,55 +3,55 @@
 /* Base Avatar */
 .avatar-leaf {
   @apply w-10 h-10 rounded-full 
-         bg-leaf-200 border-2 border-leaf-400
+         bg-gold-200 border-2 border-gold-400
          flex items-center justify-center
-         text-leaf-700 font-semibold;
+         text-gold-700 font-semibold;
 }
 
 /* Avatar Sizes */
-.avatar-leaf-sm {
+.avatar-gold-sm {
   @apply w-8 h-8 text-sm;
 }
 
-.avatar-leaf-lg {
+.avatar-gold-lg {
   @apply w-14 h-14 text-lg;
 }
 
-.avatar-leaf-xl {
+.avatar-gold-xl {
   @apply w-20 h-20 text-2xl;
 }
 
 /* Avatar with Image */
-.avatar-leaf-img {
+.avatar-gold-img {
   @apply object-cover;
 }
 
 /* Avatar Status Indicator */
-.avatar-leaf-online {
+.avatar-gold-online {
   @apply relative;
 }
 
-.avatar-leaf-online::after {
+.avatar-gold-online::after {
   @apply absolute bottom-0 right-0 w-3 h-3
-         bg-leaf-500 border-2 border-white rounded-full;
+         bg-gold-500 border-2 border-white rounded-full;
   content: '';
 }
 
 /* Avatar Group */
-.avatar-leaf-group {
+.avatar-gold-group {
   @apply flex -space-x-3;
 }
 
-.avatar-leaf-group .avatar-leaf {
+.avatar-gold-group .avatar-leaf {
   @apply border-2 border-white;
 }
 
 /* Winner Avatar */
-.avatar-leaf-winner {
-  @apply ring-4 ring-leaf-400 animate-glow-pulse;
+.avatar-gold-winner {
+  @apply ring-4 ring-gold-400 animate-glow-pulse;
 }
 
 /* Placeholder Avatar */
-.avatar-leaf-placeholder {
-  @apply bg-leaf-300 text-leaf-600;
+.avatar-gold-placeholder {
+  @apply bg-gold-300 text-gold-600;
 }
