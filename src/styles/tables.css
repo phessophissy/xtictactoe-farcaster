@@ -1,28 +1,28 @@
 /* Leaf Green Table Styles */
 
 /* Base Table */
-.table-leaf {
+.table-gold {
   @apply w-full border-collapse;
 }
 
 /* Table Header */
-.table-leaf thead {
+.table-gold thead {
   @apply bg-gold-200;
 }
 
-.table-leaf th {
+.table-gold th {
   @apply px-4 py-3 text-left text-gold-700 
          font-semibold text-sm uppercase tracking-wide
          border-b-2 border-gold-400;
 }
 
 /* Table Body */
-.table-leaf tbody tr {
+.table-gold tbody tr {
   @apply border-b border-gold-200
          hover:bg-gold-50 transition-colors;
 }
 
-.table-leaf td {
+.table-gold td {
   @apply px-4 py-3 text-gold-700;
 }
 
