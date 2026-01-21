@@ -27,21 +27,21 @@
 }
 
 /* Hidden scrollbar utility */
-.scrollbar-leaf-hidden {
+.scrollbar-gold-hidden {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
 
-.scrollbar-leaf-hidden::-webkit-scrollbar {
+.scrollbar-gold-hidden::-webkit-scrollbar {
   display: none;
 }
 
 /* Thin scrollbar */
-.scrollbar-leaf-thin::-webkit-scrollbar {
+.scrollbar-gold-thin::-webkit-scrollbar {
   width: 4px;
 }
 
 /* Wide scrollbar */
-.scrollbar-leaf-wide::-webkit-scrollbar {
+.scrollbar-gold-wide::-webkit-scrollbar {
   width: 12px;
 }
