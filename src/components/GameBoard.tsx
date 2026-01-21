@@ -17,6 +17,11 @@ export default function GameBoard({ mode, difficulty, onBack, onWin }: GameBoard
   const [winner, setWinner] = useState<Player>(null);
   const [winningLine, setWinningLine] = useState<number[] | null>(null);
   const [isDraw, setIsDraw] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
+    setIsLoaded(true);
+  }, []);
 
   const handleMove = useCallback((index: number) => {
     setBoard(prevBoard => {
@@ -74,23 +79,30 @@ export default function GameBoard({ mode, difficulty, onBack, onWin }: GameBoard
     return winningLine?.includes(index);
   };
 
+  const getCellDelayClass = (index: number) => {
+    const delays = ['animation-delay-100', 'animation-delay-200', 'animation-delay-300', 
+                    'animation-delay-400', 'animation-delay-500', 'animation-delay-600',
+                    'animation-delay-700', 'animation-delay-800', 'animation-delay-900'];
+    return delays[index] || '';
+  };
+
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-gold-100 via-gold-200 to-gold-300">
-      <div className="w-full max-w-md">
-        <div className="bg-gradient-to-br from-gold-50 to-gold-100 rounded-2xl shadow-2xl p-8 border-4 border-gold-400">
+    <div className={`min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-obsidian-50 via-obsidian-100 to-obsidian-200 ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`}>
+      <div className={`w-full max-w-md ${isLoaded ? 'animate-slide-up' : 'opacity-0'}`}>
+        <div className="metal-card p-8 animate-glow-gold">
           <div className="flex justify-between items-center mb-6">
             <button
               onClick={onBack}
-              className="bg-gold-300 hover:bg-gold-400 text-gold-800 font-bold py-2 px-4 rounded-lg transition-colors"
+              className="metal-btn text-sm hover:animate-wiggle"
             >
               ← Back
             </button>
-            <h2 className="text-2xl font-bold text-gold-800">
+            <h2 className="text-2xl font-bold metal-text animate-gold-shimmer">
               {mode === 'ai' ? '🤖 AI Mode' : '⚔️ PvP Mode'}
             </h2>
             <button
               onClick={handleReset}
-              className="bg-gold-300 hover:bg-gold-400 text-gold-800 font-bold py-2 px-4 rounded-lg transition-colors"
+              className="metal-btn text-sm hover:animate-rotate-in"
             >
               🔄
             </button>
@@ -98,13 +110,13 @@ export default function GameBoard({ mode, difficulty, onBack, onWin }: GameBoard
 
           <div className="mb-6 text-center">
             {winner ? (
-              <p className="text-2xl font-bold text-gold-800 animate-bounce-in">
+              <p className="text-2xl font-bold metal-text animate-tada">
                 {winner === 'X' ? '🎉 You Win!' : '😔 You Lose!'}
               </p>
             ) : isDraw ? (
-              <p className="text-2xl font-bold text-gold-700">🤝 Draw!</p>
+              <p className="text-2xl font-bold metal-text animate-shake">🤝 Draw!</p>
             ) : (
-              <p className="text-xl text-gold-700">
+              <p className="text-xl metal-text animate-pulse-gold">
                 {currentPlayer === 'X' ? 'Your Turn' : mode === 'ai' ? 'AI Thinking...' : 'Opponent Turn'}
               </p>
             )}
@@ -117,18 +129,17 @@ export default function GameBoard({ mode, difficulty, onBack, onWin }: GameBoard
                 onClick={() => handleMove(index)}
                 disabled={!!cell || !!winner || isDraw || (mode === 'ai' && currentPlayer === 'O')}
                 className={`
-                  aspect-square bg-gradient-to-br from-gold-200 to-gold-300
-                  rounded-xl shadow-lg hover:shadow-xl
+                  aspect-square metal-cell
                   flex items-center justify-center text-5xl font-bold
-                  transition-all duration-200 transform hover:scale-105
-                  border-2 border-gold-400
-                  ${cell ? 'cursor-default' : 'cursor-pointer'}
-                  ${isWinningCell(index) ? 'animate-cell-win bg-gradient-to-br from-gold-400 to-gold-500' : ''}
-                  ${!cell && !winner && !isDraw ? 'hover:bg-gradient-to-br hover:from-gold-300 hover:to-gold-400' : ''}
+                  transition-all duration-200 transform
+                  ${isLoaded ? `animate-scale-in ${getCellDelayClass(index)}` : 'opacity-0'}
+                  ${cell ? 'cursor-default' : 'cursor-pointer hover:scale-105'}
+                  ${isWinningCell(index) ? 'metal-cell-win animate-victory-glow' : ''}
+                  ${!cell && !winner && !isDraw ? 'hover:animate-glow-gold' : ''}
                 `}
               >
                 {cell && (
-                  <span className={`animate-bounce-in ${cell === 'X' ? 'text-gold-800' : 'text-gold-700'}`}>
+                  <span className={`metal-place ${cell === 'X' ? 'metal-x' : 'metal-o'}`}>
                     {cell}
                   </span>
                 )}
@@ -137,8 +148,8 @@ export default function GameBoard({ mode, difficulty, onBack, onWin }: GameBoard
           </div>
 
           {mode === 'ai' && (
-            <div className="text-center text-sm text-gold-600">
-              Difficulty: <span className="font-bold text-gold-800 capitalize">{difficulty}</span>
+            <div className="text-center text-sm text-gold-400 animate-fade-in">
+              Difficulty: <span className="font-bold text-gold-300 capitalize animate-gold-shimmer">{difficulty}</span>
             </div>
           )}
         </div>
