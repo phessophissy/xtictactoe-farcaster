@@ -193,29 +193,29 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
 
   if (isWaitingForPlayer2) {
     return (
-      <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-leaf-100 via-leaf-200 to-leaf-300">
+      <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-gold-100 via-gold-200 to-gold-300">
         <div className="w-full max-w-md">
-          <div className="bg-gradient-to-br from-leaf-50 to-leaf-100 rounded-2xl shadow-2xl p-8 border-4 border-leaf-400">
+          <div className="bg-gradient-to-br from-gold-50 to-gold-100 rounded-2xl shadow-2xl p-8 border-4 border-gold-400">
             <div className="flex justify-between items-center mb-6">
               <button
                 onClick={onBack}
-                className="bg-leaf-300 hover:bg-leaf-400 text-leaf-800 font-bold py-2 px-4 rounded-lg transition-colors"
+                className="bg-gold-300 hover:bg-gold-400 text-gold-800 font-bold py-2 px-4 rounded-lg transition-colors"
               >
                 ← Back
               </button>
-              <h2 className="text-2xl font-bold text-leaf-800">⚔️ PvP</h2>
+              <h2 className="text-2xl font-bold text-gold-800">⚔️ PvP</h2>
               <div className="w-20"></div>
             </div>
 
             <div className="text-center space-y-6">
               <div className="text-6xl animate-bounce">⏳</div>
-              <h3 className="text-2xl font-bold text-leaf-800">Waiting for Opponent...</h3>
-              <p className="text-leaf-600">Game #{gameId.toString()}</p>
-              <p className="text-sm text-leaf-500">Share this game link with a friend to start playing!</p>
+              <h3 className="text-2xl font-bold text-gold-800">Waiting for Opponent...</h3>
+              <p className="text-gold-600">Game #{gameId.toString()}</p>
+              <p className="text-sm text-gold-500">Share this game link with a friend to start playing!</p>
               
-              <div className="bg-leaf-200 rounded-lg p-4 border-2 border-leaf-300">
-                <p className="text-xs text-leaf-700 mb-2">Your Address:</p>
-                <p className="text-sm font-mono text-leaf-900 break-all">
+              <div className="bg-gold-200 rounded-lg p-4 border-2 border-gold-300">
+                <p className="text-xs text-gold-700 mb-2">Your Address:</p>
+                <p className="text-sm font-mono text-gold-900 break-all">
                   {player1Address || 'Loading...'}
                 </p>
               </div>
@@ -227,34 +227,34 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-leaf-100 via-leaf-200 to-leaf-300">
+    <div className="min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-gold-100 via-gold-200 to-gold-300">
       <div className="w-full max-w-md">
-        <div className="bg-gradient-to-br from-leaf-50 to-leaf-100 rounded-2xl shadow-2xl p-8 border-4 border-leaf-400">
+        <div className="bg-gradient-to-br from-gold-50 to-gold-100 rounded-2xl shadow-2xl p-8 border-4 border-gold-400">
           <div className="flex justify-between items-center mb-6">
             <button
               onClick={onBack}
-              className="bg-leaf-300 hover:bg-leaf-400 text-leaf-800 font-bold py-2 px-4 rounded-lg transition-colors"
+              className="bg-gold-300 hover:bg-gold-400 text-gold-800 font-bold py-2 px-4 rounded-lg transition-colors"
             >
               ← Back
             </button>
-            <h2 className="text-2xl font-bold text-leaf-800">⚔️ PvP</h2>
-            <div className="text-sm text-leaf-600">
+            <h2 className="text-2xl font-bold text-gold-800">⚔️ PvP</h2>
+            <div className="text-sm text-gold-600">
               Game #{gameId.toString()}
             </div>
           </div>
 
           {gameStartTime && (
             <div className="mb-4 text-center">
-              <div className="inline-block bg-gradient-to-r from-leaf-500 to-leaf-600 text-white font-bold py-2 px-6 rounded-full text-2xl">
+              <div className="inline-block bg-gradient-to-r from-gold-500 to-gold-600 text-white font-bold py-2 px-6 rounded-full text-2xl">
                 ⏱️ {formatTime(elapsedTime)}
               </div>
             </div>
           )}
 
-          <div className="mb-4 space-y-2 text-sm text-leaf-700">
+          <div className="mb-4 space-y-2 text-sm text-gold-700">
             <div className="flex justify-between">
               <span>You are:</span>
-              <span className="font-bold text-leaf-800">{mySymbol}</span>
+              <span className="font-bold text-gold-800">{mySymbol}</span>
             </div>
             <div className="flex justify-between">
               <span>Prize Pool:</span>
@@ -262,7 +262,7 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
             </div>
             <div className="flex justify-between">
               <span>Opponent:</span>
-              <span className="font-mono text-xs text-leaf-600">
+              <span className="font-mono text-xs text-gold-600">
                 {isPlayer1 ? `${player2Address?.slice(0, 6)}...${player2Address?.slice(-4)}` : `${player1Address?.slice(0, 6)}...${player1Address?.slice(-4)}`}
               </span>
             </div>
@@ -271,7 +271,7 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
           <div className="mb-6 text-center">
             {winner ? (
               <div className="space-y-2">
-                <p className="text-2xl font-bold text-leaf-800 animate-bounce-in">
+                <p className="text-2xl font-bold text-gold-800 animate-bounce-in">
                   {winner === mySymbol ? '🎉 You Win!' : '😔 You Lose!'}
                 </p>
                 {winner === mySymbol && (
@@ -285,13 +285,13 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
                 )}
               </div>
             ) : isDraw ? (
-              <p className="text-2xl font-bold text-leaf-700">🤝 Draw!</p>
+              <p className="text-2xl font-bold text-gold-700">🤝 Draw!</p>
             ) : (
               <div className="space-y-2">
-                <p className="text-xl text-leaf-700">
+                <p className="text-xl text-gold-700">
                   {isMyTurn ? '✨ Your Turn' : '⏳ Opponent Turn'}
                 </p>
-                <div className={`text-lg font-bold ${turnTimeLeft <= 30 ? 'text-red-600 animate-pulse' : 'text-leaf-600'}`}>
+                <div className={`text-lg font-bold ${turnTimeLeft <= 30 ? 'text-red-600 animate-pulse' : 'text-gold-600'}`}>
                   ⏱️ {formatTime(turnTimeLeft)}
                 </div>
                 {turnTimeLeft <= 30 && (
@@ -308,19 +308,19 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
                 onClick={() => handleMove(index)}
                 disabled={!!cell || !!winner || isDraw || !isMyTurn || isSubmitting}
                 className={`
-                  aspect-square bg-gradient-to-br from-leaf-200 to-leaf-300
+                  aspect-square bg-gradient-to-br from-gold-200 to-gold-300
                   rounded-xl shadow-lg hover:shadow-xl
                   flex items-center justify-center text-5xl font-bold
                   transition-all duration-200 transform
-                  border-2 border-leaf-400
+                  border-2 border-gold-400
                   ${cell ? 'cursor-default' : 'cursor-pointer'}
-                  ${isWinningCell(index) ? 'animate-cell-win bg-gradient-to-br from-leaf-400 to-leaf-500' : ''}
-                  ${!cell && !winner && !isDraw && isMyTurn && !isSubmitting ? 'hover:bg-gradient-to-br hover:from-leaf-300 hover:to-leaf-400 hover:scale-105' : ''}
+                  ${isWinningCell(index) ? 'animate-cell-win bg-gradient-to-br from-gold-400 to-gold-500' : ''}
+                  ${!cell && !winner && !isDraw && isMyTurn && !isSubmitting ? 'hover:bg-gradient-to-br hover:from-gold-300 hover:to-gold-400 hover:scale-105' : ''}
                   ${(!isMyTurn || isSubmitting) && !cell ? 'opacity-60' : ''}
                 `}
               >
                 {cell && (
-                  <span className={`animate-bounce-in ${cell === 'X' ? 'text-leaf-800' : 'text-leaf-700'}`}>
+                  <span className={`animate-bounce-in ${cell === 'X' ? 'text-gold-800' : 'text-gold-700'}`}>
                     {cell}
                   </span>
                 )}
@@ -328,8 +328,8 @@ export default function PvPGame({ gameId, onBack }: PvPGameProps) {
             ))}
           </div>
 
-          <div className="bg-leaf-100 border-2 border-leaf-400 rounded-lg p-3 text-center">
-            <p className="text-xs text-leaf-800">
+          <div className="bg-gold-100 border-2 border-gold-400 rounded-lg p-3 text-center">
+            <p className="text-xs text-gold-800">
               <strong>✅ Real-time Sync Active:</strong> Moves sync between players every 2 seconds via backend API.
             </p>
           </div>
