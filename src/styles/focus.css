@@ -2,18 +2,18 @@
 
 /* Custom Focus Ring */
 .focus-leaf {
-  @apply focus:outline-none focus:ring-2 focus:ring-leaf-400 focus:ring-offset-2;
+  @apply focus:outline-none focus:ring-2 focus:ring-gold-400 focus:ring-offset-2;
 }
 
 /* Focus Within Container */
 .focus-within-leaf {
-  @apply focus-within:ring-2 focus-within:ring-leaf-400;
+  @apply focus-within:ring-2 focus-within:ring-gold-400;
 }
 
 /* Visible Focus Only */
 .focus-visible-leaf {
   @apply focus-visible:outline-none focus-visible:ring-2 
-         focus-visible:ring-leaf-500 focus-visible:ring-offset-2;
+         focus-visible:ring-gold-500 focus-visible:ring-offset-2;
 }
 
 /* No Focus Outline */
@@ -32,7 +32,7 @@
 
 /* Focus Border */
 .focus-border-leaf {
-  @apply focus:border-leaf-500 focus:outline-none;
+  @apply focus:border-gold-500 focus:outline-none;
 }
 
 /* Focus Scale */
@@ -42,5 +42,5 @@
 
 /* Keyboard Focus Indicator */
 [data-focus-visible-added] .focus-keyboard-leaf {
-  @apply ring-2 ring-leaf-500 ring-offset-2;
+  @apply ring-2 ring-gold-500 ring-offset-2;
 }
