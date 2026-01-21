@@ -7,7 +7,7 @@
 }
 
 /* Modal Container */
-.modal-leaf {
+.modal-gold {
   @apply bg-gradient-to-br from-gold-50 to-gold-100
          rounded-2xl shadow-2xl p-8
          border-4 border-gold-400
