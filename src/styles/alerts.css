@@ -1,7 +1,7 @@
 /* Leaf Green Alert Styles */
 
 /* Base Alert */
-.alert-leaf {
+.alert-gold {
   @apply p-4 rounded-lg border;
 }
 
@@ -26,7 +26,7 @@
 }
 
 /* Toast Notification */
-.toast-leaf {
+.toast-gold {
   @apply fixed bottom-4 right-4 p-4 rounded-xl
          bg-gold-600 text-white shadow-xl
          transform transition-all duration-300
