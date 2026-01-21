@@ -1,56 +1,95 @@
-/* Leaf Green Loading Animations */
+/* Gold and Black Loading Animations */
 
 /* Spinner */
-.loader-leaf-spinner {
-  @apply w-8 h-8 border-4 border-leaf-200
-         border-t-leaf-600 rounded-full
+.loader-gold-spinner {
+  @apply w-8 h-8 border-4 border-gold-700
+         border-t-gold-400 rounded-full
          animate-spin;
 }
 
 /* Dots */
-.loader-leaf-dots {
+.loader-gold-dots {
   @apply flex gap-1;
 }
 
-.loader-leaf-dots span {
-  @apply w-2 h-2 bg-leaf-500 rounded-full
+.loader-gold-dots span {
+  @apply w-2 h-2 bg-gold-500 rounded-full
          animate-bounce;
 }
 
-.loader-leaf-dots span:nth-child(2) {
+.loader-gold-dots span:nth-child(2) {
   animation-delay: 0.1s;
 }
 
-.loader-leaf-dots span:nth-child(3) {
+.loader-gold-dots span:nth-child(3) {
   animation-delay: 0.2s;
 }
 
 /* Pulse */
-.loader-leaf-pulse {
-  @apply w-12 h-12 bg-leaf-400 rounded-full
-         animate-ping;
+.loader-gold-pulse {
+  @apply w-12 h-12 bg-gold-500 rounded-full
+         animate-ping opacity-75;
 }
 
 /* Bar */
-.loader-leaf-bar {
-  @apply w-full h-2 bg-leaf-200 rounded-full
+.loader-gold-bar {
+  @apply w-full h-2 bg-obsidian-200 rounded-full
          overflow-hidden;
 }
 
-.loader-leaf-bar-fill {
-  @apply h-full bg-gradient-to-r from-leaf-400 to-leaf-600
+.loader-gold-bar-fill {
+  @apply h-full bg-gradient-to-r from-gold-500 to-gold-400
          rounded-full animate-pulse;
 }
 
 /* Skeleton */
-.loader-leaf-skeleton {
-  @apply bg-leaf-200 rounded animate-pulse;
+.loader-gold-skeleton {
+  @apply bg-obsidian-200 rounded animate-pulse;
 }
 
 /* Ring */
-.loader-leaf-ring {
+.loader-gold-ring {
   @apply w-10 h-10 rounded-full
-         border-4 border-leaf-200
-         border-t-leaf-500 border-r-leaf-500
+         border-4 border-obsidian-200
+         border-t-gold-400 border-r-gold-400
          animate-spin;
+}
+
+/* Metal Spinner (used in components) */
+.metal-spinner {
+  @apply w-5 h-5 border-2 border-gold-700
+         border-t-gold-400 rounded-full
+         animate-spin inline-block;
+}
+
+/* Shimmer Effect */
+.loader-gold-shimmer {
+  @apply relative overflow-hidden;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(245, 158, 11, 0.2) 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Glow Pulse Loader */
+.loader-gold-glow {
+  @apply w-8 h-8 rounded-full bg-gold-500;
+  animation: goldGlowPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes goldGlowPulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(245, 158, 11, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.8);
+  }
 }
