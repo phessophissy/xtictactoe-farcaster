@@ -1,7 +1,7 @@
-// Leaf Green Theme Hook
+// Gold and Black Theme Hook
 
 import { useState, useCallback, useEffect } from 'react';
-import { leafColors, forestColors, themeConfig } from '@/utils/theme';
+import { goldColors, obsidianColors, royalColors, themeConfig } from '@/utils/theme';
 
 export interface ThemeState {
   isDark: boolean;
@@ -10,15 +10,11 @@ export interface ThemeState {
 }
 
 export const useTheme = () => {
-  const [isDark, setIsDark] = useState(false);
+  const [isDark, setIsDark] = useState(true); // Default to dark for gold/black theme
 
   useEffect(() => {
-    const darkModeQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    setIsDark(darkModeQuery.matches);
-
-    const handler = (e: MediaQueryListEvent) => setIsDark(e.matches);
-    darkModeQuery.addEventListener('change', handler);
-    return () => darkModeQuery.removeEventListener('change', handler);
+    // For gold and black theme, always use dark mode
+    setIsDark(true);
   }, []);
 
   const toggleDark = useCallback(() => {
@@ -26,26 +22,37 @@ export const useTheme = () => {
   }, []);
 
   const getBackgroundColor = useCallback(() => {
-    return isDark ? leafColors[900] : leafColors[100];
+    return isDark ? obsidianColors[50] : goldColors[100];
   }, [isDark]);
 
   const getTextColor = useCallback(() => {
-    return isDark ? leafColors[100] : leafColors[800];
+    return isDark ? goldColors[400] : obsidianColors[50];
   }, [isDark]);
 
   const getSurfaceColor = useCallback(() => {
-    return isDark ? leafColors[800] : leafColors[50];
+    return isDark ? obsidianColors[100] : goldColors[50];
   }, [isDark]);
+
+  const getPrimaryColor = useCallback(() => {
+    return goldColors[500];
+  }, []);
+
+  const getAccentColor = useCallback(() => {
+    return royalColors.medium;
+  }, []);
 
   return {
     isDark,
     toggleDark,
-    colors: leafColors,
-    forest: forestColors,
+    colors: goldColors,
+    obsidian: obsidianColors,
+    royal: royalColors,
     config: themeConfig,
     getBackgroundColor,
     getTextColor,
     getSurfaceColor,
+    getPrimaryColor,
+    getAccentColor,
   };
 };
 
