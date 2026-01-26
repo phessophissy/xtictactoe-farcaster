@@ -34,6 +34,8 @@ contract TicTacToeEscrow {
     event GameJoined(uint256 indexed gameId, address indexed player2);
     event GameCompleted(uint256 indexed gameId, address indexed winner, uint256 payout);
     event SponsoredEntry(uint256 indexed gameId, address indexed player);
+    event GameDraw(uint256 indexed gameId, address indexed player1, address indexed player2, uint256 refundAmount);
+    event GameCancelled(uint256 indexed gameId, address indexed player1);
     
     constructor(address _paymaster, address _usdc) {
         PAYMASTER = _paymaster;
@@ -118,6 +120,22 @@ contract TicTacToeEscrow {
         
         game.active = false;
         game.completed = true;
+
+   // Handle draw (winner == address(0))
+    if (winner == address(0)) {
+        // Refund both players (minus creator fee)
+        uint256 refundPerPlayer = (game.pot - CREATOR_FEE) / 2;
+        
+        IERC20(USDC).transfer(CREATOR, CREATOR_FEE);
+        IERC20(USDC).transfer(game.player1, refundPerPlayer);
+        IERC20(USDC).transfer(game.player2, refundPerPlayer);
+        
+        // Update stats (no wins/losses for draws)
+        totalGames[game.player1]++;
+        totalGames[game.player2]++;
+        
+        emit GameDraw(gameId, game.player1, game.player2, refundPerPlayer);
+    } else {
         
         // Update stats
         wins[winner]++;
@@ -133,6 +151,7 @@ contract TicTacToeEscrow {
         
         emit GameCompleted(gameId, winner, WINNER_PAYOUT);
     }
+}
     
     function getGame(uint256 gameId) external view returns (Game memory) {
         return games[gameId];
@@ -147,4 +166,20 @@ contract TicTacToeEscrow {
         uint256[] memory playerWins = new uint256[](limit);
         return (players, playerWins);
     }
+
+function cancelGame(uint256 gameId) external {
+    Game storage game = games[gameId];
+    require(game.active, "Game not active");
+    require(game.player2 == address(0), "Game already has opponent");
+    require(msg.sender == game.player1, "Only creator can cancel");
+    require(block.timestamp > createdAt[gameId] + 24 hours, "Too soon to cancel");
+    
+    game.active = false;
+    
+    // Refund the entry fee
+    IERC20(USDC).transfer(game.player1, ENTRY_FEE);
+    
+    emit GameCancelled(gameId, game.player1);
+}
+
 }
