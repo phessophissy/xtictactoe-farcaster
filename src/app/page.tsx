@@ -17,6 +17,7 @@ export default function Home() {
   const [mode, setMode] = useState<GameMode>('ai');
   const [difficulty, setDifficulty] = useState<AIDifficulty>('medium');
   const [gameId, setGameId] = useState<bigint | null>(null);
+  const [playerSymbol, setPlayerSymbol] = useState<'X' | 'O'>('X');
   const [soundEnabled, setSoundEnabled] = useState(true);
 
   const handleSelectMode = (selectedMode: GameMode) => {
@@ -28,8 +29,9 @@ export default function Home() {
     }
   };
 
-  const handleGameCreated = (id: bigint) => {
+  const handleGameCreated = (id: bigint, symbol: 'X' | 'O') => {
     setGameId(id);
+    setPlayerSymbol(symbol);
     setScreen('pvpgame');
   };
 
@@ -57,7 +59,7 @@ export default function Home() {
       <div className="fixed top-4 right-4 z-50 flex gap-2">
         <button
           onClick={toggleSound}
-          className="bg-gold-400 hover:bg-gold-500 text-white font-bold p-3 rounded-lg shadow-lg transition-all"
+          className="bg-wood-600 hover:bg-wood-500 text-white font-bold p-3 rounded-lg shadow-lg transition-all border border-wood-400"
           title={soundEnabled ? 'Mute' : 'Unmute'}
         >
           {soundEnabled ? '🔊' : '🔇'}
@@ -65,7 +67,7 @@ export default function Home() {
         {screen === 'menu' && (
           <button
             onClick={showLeaderboard}
-            className="bg-gold-400 hover:bg-gold-500 text-white font-bold p-3 rounded-lg shadow-lg transition-all"
+            className="bg-wood-600 hover:bg-wood-500 text-white font-bold p-3 rounded-lg shadow-lg transition-all border border-wood-400"
             title="Leaderboard"
           >
             🏆
@@ -99,7 +101,8 @@ export default function Home() {
 
       {screen === 'pvpgame' && gameId && (
         <PvPGame
-          gameId={gameId}
+          gameId={gameId.toString()}
+          playerSymbol={playerSymbol}
           onBack={handleBack}
         />
       )}

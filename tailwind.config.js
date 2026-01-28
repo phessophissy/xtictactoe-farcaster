@@ -8,48 +8,45 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        gold: {
-          50: '#fffef7',
-          100: '#fefce8',
-          200: '#fef08a',
-          300: '#fde047',
-          400: '#facc15',
-          500: '#eab308',
-          600: '#ca8a04',
-          700: '#a16207',
-          800: '#854d0e',
-          900: '#713f12',
+        wood: {
+          50: '#f7f3ef',
+          100: '#efe5d8',
+          200: '#dfc8b0',
+          300: '#cba583',
+          400: '#b67f56',
+          500: '#9f5f36',
+          600: '#8d4b2e',
+          700: '#753b26',
+          800: '#623223',
+          900: '#512a1f',
+          950: '#2b1510',
         },
-        royal: {
-          light: '#fde047',
-          mid: '#eab308',
-          dark: '#a16207',
+        metal: {
+          50: '#f9fafb',
+          100: '#f3f4f6',
+          200: '#e5e7eb',
+          300: '#d1d5db',
+          400: '#9ca3af',
+          500: '#6b7280',
+          600: '#4b5563',
+          700: '#374151',
+          800: '#1f2937',
+          900: '#111827',
+          950: '#030712',
         },
-        obsidian: {
-          50: '#18181b',
-          100: '#1a1a1f',
-          200: '#1c1c22',
-          300: '#27272a',
-          400: '#3f3f46',
-          500: '#52525b',
-          600: '#71717a',
-          700: '#a1a1aa',
-          800: '#d4d4d8',
-          900: '#e4e4e7',
-        },
-        onyx: {
-          light: '#3f3f46',
-          mid: '#27272a',
-          dark: '#18181b',
+        bronze: {
+          light: '#d6a374',
+          mid: '#b08d5b',
+          dark: '#8a7148',
         },
       },
       animation: {
         'glow-pulse': 'glow-pulse 1.5s ease-in-out infinite',
-        'cell-win': 'goldCellWin 0.8s ease-out forwards',
-        'bounce-in': 'goldPlace 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
-        'gold-shine': 'goldShineSweep 4s ease-in-out infinite',
-        'float-gold': 'floatGold1 20s ease-in-out infinite',
-        'pulse-gold': 'goldenPulse 2s ease-in-out infinite',
+        'cell-win': 'metalCellWin 0.8s ease-out forwards',
+        'bounce-in': 'metalPlace 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+        'metal-shine': 'metalShineSweep 4s ease-in-out infinite',
+        'float-metal': 'floatMetal1 20s ease-in-out infinite',
+        'pulse-metal': 'metalPulse 2s ease-in-out infinite',
         'marker-pulse': 'markerPulse 2s ease-in-out infinite',
         'victory-glow': 'victoryGlow 1.5s ease-in-out infinite',
         'text-shimmer': 'textShimmer 3s ease-in-out infinite',
@@ -58,7 +55,7 @@ module.exports = {
         'timer-urgent': 'timerUrgent 1s ease-in-out infinite',
         'ripple-expand': 'rippleExpand 0.6s ease-out forwards',
         'particle-fly': 'particleFly 1s ease-out forwards',
-        'gold-spin': 'goldSpin 1s linear infinite',
+        'metal-spin': 'metalSpin 1s linear infinite',
         'fade-in': 'fadeIn 0.5s ease-out forwards',
         'slide-up': 'slideUp 0.5s ease-out forwards',
         'slide-down': 'slideDown 0.5s ease-out forwards',
@@ -79,34 +76,34 @@ module.exports = {
         'bounce-out': 'bounceOut 0.5s ease-out forwards',
         'zoom-in': 'zoomIn 0.4s ease-out forwards',
         'zoom-out': 'zoomOut 0.4s ease-out forwards',
-        'gold-shimmer': 'goldShimmer 2s ease-in-out infinite',
+        'metal-shimmer': 'metalShimmer 2s ease-in-out infinite',
         'sparkle': 'sparkle 1.5s ease-in-out infinite',
-        'glow-pulse-gold': 'glowPulseGold 2s ease-in-out infinite',
+        'glow-pulse-metal': 'glowPulseMetal 2s ease-in-out infinite',
       },
       keyframes: {
         'glow-pulse': {
-          '0%, 100%': { 
-            boxShadow: '0 0 10px rgba(234, 179, 8, 0.3), 0 0 20px rgba(234, 179, 8, 0.2)',
+          '0%, 100%': {
+            boxShadow: '0 0 10px rgba(156, 163, 175, 0.3), 0 0 20px rgba(107, 114, 128, 0.2)',
           },
-          '50%': { 
-            boxShadow: '0 0 25px rgba(250, 204, 21, 0.5), 0 0 40px rgba(234, 179, 8, 0.3)',
+          '50%': {
+            boxShadow: '0 0 25px rgba(209, 213, 219, 0.5), 0 0 40px rgba(156, 163, 175, 0.3)',
           },
         },
-        'goldCellWin': {
-          '0%': { 
+        'metalCellWin': {
+          '0%': {
             transform: 'scale(1)',
             boxShadow: '0 4px 15px rgba(0,0,0,0.4)',
           },
-          '50%': { 
+          '50%': {
             transform: 'scale(1.2) rotate(-2deg)',
-            boxShadow: '0 0 50px rgba(250,204,21,0.6), 0 0 80px rgba(234,179,8,0.4)',
+            boxShadow: '0 0 50px rgba(209,213,219,0.6), 0 0 80px rgba(156,163,175,0.4)',
           },
-          '100%': { 
+          '100%': {
             transform: 'scale(1.05)',
-            boxShadow: '0 0 25px rgba(250,204,21,0.4), 0 0 50px rgba(234,179,8,0.2)',
+            boxShadow: '0 0 25px rgba(209,213,219,0.4), 0 0 50px rgba(156,163,175,0.2)',
           },
         },
-        'goldPlace': {
+        'metalPlace': {
           '0%': {
             transform: 'scale(0) rotate(-180deg)',
             opacity: '0',
@@ -119,26 +116,26 @@ module.exports = {
             opacity: '1',
           },
         },
-        'goldShineSweep': {
+        'metalShineSweep': {
           '0%': { backgroundPosition: '-200% center' },
           '100%': { backgroundPosition: '200% center' },
         },
-        'floatGold1': {
-          '0%, 100%': { 
+        'floatMetal1': {
+          '0%, 100%': {
             transform: 'rotate(-15deg) translateY(0px) scale(1)',
             filter: 'brightness(1)',
           },
-          '50%': { 
+          '50%': {
             transform: 'rotate(-15deg) translateY(-35px) scale(1.02)',
             filter: 'brightness(1.2)',
           },
         },
-        'goldenPulse': {
+        'metalPulse': {
           '0%, 100%': {
-            boxShadow: '0 0 20px rgba(234,179,8,0.2), inset 0 1px 0 rgba(255,255,255,0.1)',
+            boxShadow: '0 0 20px rgba(156,163,175,0.2), inset 0 1px 0 rgba(255,255,255,0.1)',
           },
           '50%': {
-            boxShadow: '0 0 40px rgba(250,204,21,0.3), 0 0 60px rgba(234,179,8,0.15), inset 0 1px 0 rgba(255,255,255,0.2)',
+            boxShadow: '0 0 40px rgba(209,213,219,0.3), 0 0 60px rgba(156,163,175,0.15), inset 0 1px 0 rgba(255,255,255,0.2)',
           },
         },
         'markerPulse': {
@@ -153,10 +150,10 @@ module.exports = {
         },
         'victoryGlow': {
           '0%, 100%': {
-            filter: 'drop-shadow(0 0 10px rgba(250,204,21,0.5)) brightness(1)',
+            filter: 'drop-shadow(0 0 10px rgba(117,59,38,0.5)) brightness(1)',
           },
           '50%': {
-            filter: 'drop-shadow(0 0 30px rgba(250,204,21,0.8)) brightness(1.2)',
+            filter: 'drop-shadow(0 0 30px rgba(159,95,54,0.8)) brightness(1.2)',
           },
         },
         'textShimmer': {
@@ -165,20 +162,20 @@ module.exports = {
         },
         'indicatorPulse': {
           '0%, 100%': {
-            boxShadow: '0 0 8px #eab308, 0 0 16px rgba(234,179,8,0.4)',
+            boxShadow: '0 0 8px #9ca3af, 0 0 16px rgba(156,163,175,0.4)',
           },
           '50%': {
-            boxShadow: '0 0 15px #eab308, 0 0 30px rgba(234,179,8,0.6)',
+            boxShadow: '0 0 15px #9ca3af, 0 0 30px rgba(156,163,175,0.6)',
           },
         },
         'turnPulse': {
           '0%, 100%': {
             transform: 'scale(1)',
-            boxShadow: '0 0 10px rgba(234,179,8,0.3)',
+            boxShadow: '0 0 10px rgba(156,163,175,0.3)',
           },
           '50%': {
             transform: 'scale(1.05)',
-            boxShadow: '0 0 25px rgba(250,204,21,0.5)',
+            boxShadow: '0 0 25px rgba(209,213,219,0.5)',
           },
         },
         'timerUrgent': {
@@ -193,7 +190,7 @@ module.exports = {
           '0%': { transform: 'translate(0, 0) scale(1)', opacity: '1' },
           '100%': { transform: 'translate(var(--tx, 50px), var(--ty, -50px)) scale(0)', opacity: '0' },
         },
-        'goldSpin': {
+        'metalSpin': {
           '0%': { transform: 'rotate(0deg)' },
           '100%': { transform: 'rotate(360deg)' },
         },
@@ -306,7 +303,7 @@ module.exports = {
           '0%': { transform: 'scale(1)', opacity: '1' },
           '100%': { transform: 'scale(0)', opacity: '0' },
         },
-        'goldShimmer': {
+        'metalShimmer': {
           '0%': { backgroundPosition: '-200% 0' },
           '100%': { backgroundPosition: '200% 0' },
         },
@@ -314,24 +311,24 @@ module.exports = {
           '0%, 100%': { opacity: '1', transform: 'scale(1)' },
           '50%': { opacity: '0.5', transform: 'scale(0.8)' },
         },
-        'glowPulseGold': {
+        'glowPulseMetal': {
           '0%, 100%': {
-            boxShadow: '0 0 5px rgba(234,179,8,0.3), 0 0 10px rgba(234,179,8,0.2)',
+            boxShadow: '0 0 5px rgba(156,163,175,0.3), 0 0 10px rgba(156,163,175,0.2)',
           },
           '50%': {
-            boxShadow: '0 0 20px rgba(250,204,21,0.5), 0 0 40px rgba(234,179,8,0.3)',
+            boxShadow: '0 0 20px rgba(209,213,219,0.5), 0 0 40px rgba(156,163,175,0.3)',
           },
         },
       },
       backgroundImage: {
-        'gold-gradient': 'linear-gradient(180deg, #eab308 0%, #ca8a04 40%, #a16207 60%, #ca8a04 100%)',
-        'royal-gradient': 'linear-gradient(180deg, #fde047 0%, #eab308 25%, #a16207 50%, #ca8a04 75%, #fde047 100%)',
-        'card-gold': 'linear-gradient(145deg, #27272a 0%, #18181b 50%, #0f0f0f 100%)',
+        'metal-gradient': 'linear-gradient(180deg, #d1d5db 0%, #9ca3af 40%, #6b7280 60%, #9ca3af 100%)',
+        'wood-gradient': 'linear-gradient(180deg, #cba583 0%, #9f5f36 25%, #753b26 50%, #9f5f36 75%, #cba583 100%)',
+        'card-metal': 'linear-gradient(145deg, #1f2937 0%, #111827 50%, #030712 100%)',
       },
       boxShadow: {
-        'gold': '0 10px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.3)',
-        'gold-hover': '0 6px 25px rgba(0,0,0,0.5), 0 0 20px rgba(234,179,8,0.15), inset 0 1px 0 rgba(255,255,255,0.3)',
-        'gold-inset': 'inset 0 2px 5px rgba(0,0,0,0.3), 0 4px 10px rgba(0,0,0,0.2)',
+        'metal': '0 10px 40px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1), inset 0 -1px 0 rgba(0,0,0,0.3)',
+        'metal-hover': '0 6px 25px rgba(0,0,0,0.5), 0 0 20px rgba(156,163,175,0.15), inset 0 1px 0 rgba(255,255,255,0.3)',
+        'metal-inset': 'inset 0 2px 5px rgba(0,0,0,0.3), 0 4px 10px rgba(0,0,0,0.2)',
       },
     },
   },

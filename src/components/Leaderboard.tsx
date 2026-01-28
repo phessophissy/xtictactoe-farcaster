@@ -31,17 +31,17 @@ export default function Leaderboard({ onBack }: LeaderboardProps) {
   };
 
   const getRowDelayClass = (index: number) => {
-    const delays = ['animation-delay-100', 'animation-delay-200', 'animation-delay-300', 
-                    'animation-delay-400', 'animation-delay-500', 'animation-delay-600',
-                    'animation-delay-700', 'animation-delay-800', 'animation-delay-900',
-                    'animation-delay-1000'];
+    const delays = ['animation-delay-100', 'animation-delay-200', 'animation-delay-300',
+      'animation-delay-400', 'animation-delay-500', 'animation-delay-600',
+      'animation-delay-700', 'animation-delay-800', 'animation-delay-900',
+      'animation-delay-1000'];
     return delays[index] || 'animation-delay-1000';
   };
 
   return (
-    <div className={`min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-obsidian-50 via-obsidian-100 to-obsidian-200 ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`}>
+    <div className={`min-h-screen flex items-center justify-center p-4 ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`}>
       <div className={`w-full max-w-2xl ${isLoaded ? 'animate-slide-up' : 'opacity-0'}`}>
-        <div className="metal-card p-8 animate-glow-gold">
+        <div className="metal-card p-8 animate-glow-pulse-metal">
           <div className="flex justify-between items-center mb-6">
             <button
               onClick={onBack}
@@ -49,7 +49,7 @@ export default function Leaderboard({ onBack }: LeaderboardProps) {
             >
               ← Back
             </button>
-            <h2 className="text-2xl font-bold metal-text animate-gold-shimmer">🏆 Leaderboard</h2>
+            <h2 className="text-2xl font-bold metal-text animate-metal-shimmer">🏆 Leaderboard</h2>
             <div className="w-20"></div>
           </div>
 
@@ -60,10 +60,9 @@ export default function Leaderboard({ onBack }: LeaderboardProps) {
                 onClick={() => setFilter(f)}
                 className={`
                   px-4 py-2 rounded-lg font-semibold capitalize transition-all
-                  ${
-                    filter === f
-                      ? 'metal-btn animate-glow-gold'
-                      : 'bg-obsidian-400 text-gold-300 hover:bg-obsidian-300 hover:animate-wiggle'
+                  ${filter === f
+                    ? 'metal-btn animate-glow-pulse-metal'
+                    : 'bg-metal-700 text-wood-300 hover:bg-metal-600 hover:animate-wiggle border border-metal-500'
                   }
                 `}
               >
@@ -75,7 +74,7 @@ export default function Leaderboard({ onBack }: LeaderboardProps) {
           <div className="space-y-3 max-h-[500px] overflow-y-auto custom-scrollbar">
             {isLoading ? (
               <div className="flex justify-center py-8">
-                <div className="metal-spinner animate-gold-spin"></div>
+                <div className="metal-spinner animate-metal-spin"></div>
               </div>
             ) : (
               entries.map((entry, index) => (
@@ -84,8 +83,8 @@ export default function Leaderboard({ onBack }: LeaderboardProps) {
                   className={`
                     metal-row rounded-lg p-4 flex items-center gap-4
                     bg-gradient-to-r ${getRankColor(entry.rank)}
-                    border border-gold-500/30
-                    transition-all hover:scale-102 hover:animate-glow-gold
+                    border border-wood-500/30
+                    transition-all hover:scale-102 hover:animate-glow-pulse-metal
                     ${isLoaded ? `animate-slide-right ${getRowDelayClass(index)}` : 'opacity-0'}
                   `}
                 >
@@ -94,12 +93,12 @@ export default function Leaderboard({ onBack }: LeaderboardProps) {
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-gold-200">{entry.address.slice(0, 6)}...{entry.address.slice(-4)}</span>
+                      <span className="font-bold text-wood-200">{entry.address.slice(0, 6)}...{entry.address.slice(-4)}</span>
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="text-2xl font-bold metal-text animate-gold-shimmer">{entry.winRate}%</div>
-                    <div className="text-xs text-gold-400">
+                    <div className="text-2xl font-bold metal-text animate-metal-shimmer">{entry.winRate}%</div>
+                    <div className="text-xs text-wood-400">
                       {entry.wins}W - {entry.losses}L
                     </div>
                   </div>
@@ -108,7 +107,7 @@ export default function Leaderboard({ onBack }: LeaderboardProps) {
             )}
           </div>
 
-          <div className={`mt-6 text-center text-xs text-gold-500 ${isLoaded ? 'animate-fade-in animation-delay-1000' : 'opacity-0'}`}>
+          <div className={`mt-6 text-center text-xs text-wood-500 font-mono ${isLoaded ? 'animate-fade-in animation-delay-1000' : 'opacity-0'}`}>
             <p>Rankings updated every 5 minutes • Based on PvP matches only</p>
           </div>
         </div>

@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Player, Board, checkWinner, checkDraw } from '@/utils/game';
 import { soundManager, vibrateMove, vibrateWin, vibrateLose } from '@/utils/sound';
-import { Message } from '@farcaster/frame-sdk';
+
 
 interface PvPGameProps {
   gameId: string;
@@ -31,7 +31,7 @@ export default function PvPGame({ gameId, playerSymbol, opponentName, onBack, on
 
   useEffect(() => {
     if (winner || isDraw) return;
-    
+
     timerRef.current = setInterval(() => {
       setTimeLeft(prev => {
         if (prev <= 1) {
@@ -49,7 +49,7 @@ export default function PvPGame({ gameId, playerSymbol, opponentName, onBack, on
 
   const handleMove = useCallback((index: number) => {
     if (board[index] || !isMyTurn || winner || isDraw) return;
-    
+
     const newBoard = [...board];
     newBoard[index] = currentTurn;
     setBoard(newBoard);
@@ -82,21 +82,21 @@ export default function PvPGame({ gameId, playerSymbol, opponentName, onBack, on
   const isWinningCell = (index: number) => winningLine?.includes(index);
 
   const getCellDelayClass = (index: number) => {
-    const delays = ['animation-delay-100', 'animation-delay-200', 'animation-delay-300', 
-                    'animation-delay-400', 'animation-delay-500', 'animation-delay-600',
-                    'animation-delay-700', 'animation-delay-800', 'animation-delay-900'];
+    const delays = ['animation-delay-100', 'animation-delay-200', 'animation-delay-300',
+      'animation-delay-400', 'animation-delay-500', 'animation-delay-600',
+      'animation-delay-700', 'animation-delay-800', 'animation-delay-900'];
     return delays[index] || '';
   };
 
   return (
-    <div className={`min-h-screen flex items-center justify-center p-4 bg-gradient-to-br from-obsidian-50 via-obsidian-100 to-obsidian-200 ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`}>
+    <div className={`min-h-screen flex items-center justify-center p-4 ${isLoaded ? 'animate-fade-in' : 'opacity-0'}`}>
       <div className={`w-full max-w-md ${isLoaded ? 'animate-slide-up' : 'opacity-0'}`}>
-        <div className="metal-card p-8 animate-glow-gold">
+        <div className="metal-card p-8 animate-glow-pulse-metal">
           <div className="flex justify-between items-center mb-6">
             <button onClick={onBack} className="metal-btn text-sm hover:animate-wiggle">
               ← Back
             </button>
-            <h2 className="text-2xl font-bold metal-text animate-gold-shimmer">⚔️ PvP Match</h2>
+            <h2 className="text-2xl font-bold metal-text animate-metal-shimmer">⚔️ PvP Match</h2>
             <div className={`metal-timer ${timeLeft <= 10 ? 'animate-flash' : ''}`}>
               <span className={`metal-timer-text ${timeLeft <= 5 ? 'text-red-400' : ''}`}>
                 {timeLeft}s
@@ -105,10 +105,10 @@ export default function PvPGame({ gameId, playerSymbol, opponentName, onBack, on
           </div>
 
           <div className="flex justify-between mb-4">
-            <div className={`metal-badge ${playerSymbol === 'X' ? 'animate-glow-gold' : ''}`}>
+            <div className={`metal-badge ${playerSymbol === 'X' ? 'animate-glow-pulse-metal' : ''}`}>
               You ({playerSymbol})
             </div>
-            <div className={`metal-badge ${playerSymbol === 'O' ? 'animate-glow-gold' : ''}`}>
+            <div className={`metal-badge ${playerSymbol === 'O' ? 'animate-glow-pulse-metal' : ''}`}>
               {opponentName || 'Opponent'} ({playerSymbol === 'X' ? 'O' : 'X'})
             </div>
           </div>
@@ -121,7 +121,7 @@ export default function PvPGame({ gameId, playerSymbol, opponentName, onBack, on
             ) : isDraw ? (
               <p className="text-2xl font-bold metal-text animate-shake">🤝 Draw!</p>
             ) : (
-              <p className={`text-xl metal-text ${isMyTurn ? 'animate-pulse-gold metal-turn' : ''}`}>
+              <p className={`text-xl metal-text font-mono ${isMyTurn ? 'animate-pulse-metal metal-turn' : ''}`}>
                 {isMyTurn ? '✨ Your Turn!' : '⏳ Opponent\'s Turn...'}
               </p>
             )}
@@ -140,7 +140,7 @@ export default function PvPGame({ gameId, playerSymbol, opponentName, onBack, on
                   ${isLoaded ? `animate-scale-in ${getCellDelayClass(index)}` : 'opacity-0'}
                   ${cell ? 'cursor-default' : isMyTurn ? 'cursor-pointer hover:scale-105' : 'cursor-not-allowed'}
                   ${isWinningCell(index) ? 'metal-cell-win animate-victory-glow' : ''}
-                  ${!cell && isMyTurn && !winner && !isDraw ? 'hover:animate-glow-gold' : ''}
+                  ${!cell && isMyTurn && !winner && !isDraw ? 'hover:animate-glow-pulse-metal' : ''}
                 `}
               >
                 {cell && (
@@ -152,8 +152,8 @@ export default function PvPGame({ gameId, playerSymbol, opponentName, onBack, on
             ))}
           </div>
 
-          <div className="text-center text-sm text-gold-500 animate-fade-in">
-            Game ID: <span className="font-mono text-gold-400">{gameId.slice(0, 8)}...</span>
+          <div className="text-center text-sm text-wood-500 animate-fade-in font-mono">
+            Game ID: <span className="font-mono text-wood-400">{gameId.slice(0, 8)}...</span>
           </div>
         </div>
       </div>
