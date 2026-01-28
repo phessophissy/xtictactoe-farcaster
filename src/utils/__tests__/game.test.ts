@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { checkWinner, checkDraw, getAvailableMoves, getAIMove, Board } from '../game';
+import { checkWinner, checkDraw, getAvailableMoves, getAIMove, formatAddress, calculateWinRate, Board } from '../game';
 
 describe('checkWinner', () => {
     it('should return null for an empty board', () => {
@@ -97,6 +97,25 @@ describe('getAvailableMoves', () => {
         ];
         // Indices 1, 3, 5, 7 are null
         expect(getAvailableMoves(board)).toEqual([1, 3, 5, 7]);
+    });
+});
+
+describe('Helper Functions', () => {
+    it('formatAddress should truncate address correctly', () => {
+        const address = '0x1234567890abcdef1234567890abcdef12345678';
+        expect(formatAddress(address)).toBe('0x1234...5678');
+    });
+
+    it('formatAddress should handle empty string', () => {
+        expect(formatAddress('')).toBe('');
+    });
+
+    it('calculateWinRate should calculate correctly', () => {
+        expect(calculateWinRate(5, 5)).toBe(50);
+        expect(calculateWinRate(1, 0)).toBe(100);
+        expect(calculateWinRate(0, 1)).toBe(0);
+        expect(calculateWinRate(0, 0)).toBe(0);
+        expect(calculateWinRate(1, 2)).toBe(33); // Math.round(1/3 * 100) = 33.33 -> 33
     });
 });
 
