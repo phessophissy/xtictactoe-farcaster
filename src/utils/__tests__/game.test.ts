@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { checkWinner, Board } from '../game';
+import { checkWinner, checkDraw, Board } from '../game';
 
 describe('checkWinner', () => {
     it('should return null for an empty board', () => {
@@ -41,5 +41,40 @@ describe('checkWinner', () => {
             null, null, null
         ];
         expect(checkWinner(board)).toEqual({ winner: null, winningLine: null });
+    });
+});
+
+describe('checkDraw', () => {
+    it('should return false for an empty board', () => {
+        const board: Board = Array(9).fill(null);
+        expect(checkDraw(board)).toBe(false);
+    });
+
+    it('should return false for a partially filled board with no winner', () => {
+        const board: Board = [
+            'X', 'O', 'X',
+            null, null, null,
+            null, null, null
+        ];
+        expect(checkDraw(board)).toBe(false);
+    });
+
+    it('should return true for a full board with no winner', () => {
+        const board: Board = [
+            'X', 'O', 'X',
+            'X', 'X', 'O',
+            'O', 'X', 'O'
+        ];
+        expect(checkDraw(board)).toBe(true);
+    });
+
+    it('should return false for a full board with a winner', () => {
+        // X wins on first row, but board is full
+        const board: Board = [
+            'X', 'X', 'X',
+            'O', 'O', 'X',
+            'O', 'X', 'O'
+        ];
+        expect(checkDraw(board)).toBe(false);
     });
 });
