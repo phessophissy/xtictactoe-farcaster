@@ -17,7 +17,7 @@ Thank you for your interest in contributing to xTicTacToe! This document provide
 2. Create a feature branch: `git checkout -b feature/your-feature`
 3. Make your changes
 4. Add tests for new features
-5. Ensure all tests pass: `npm test`
+5. Ensure all tests pass: `npm test` (Now available!)
 6. Update documentation if needed
 7. Commit with clear messages
 8. Push to your fork

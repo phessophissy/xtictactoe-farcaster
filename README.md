@@ -233,6 +233,20 @@ const data = await response.json();
 - Firefox 88+
 - Mobile browsers with Web3 wallet support
 
+## 🧪 Testing
+
+Run the test suite with:
+
+```bash
+npm test
+```
+
+For coverage report:
+
+```bash
+npm run test:coverage
+```
+
 ## License
 
 MIT
