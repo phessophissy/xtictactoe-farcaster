@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { checkWinner, checkDraw, Board } from '../game';
+import { checkWinner, checkDraw, getAvailableMoves, Board } from '../game';
 
 describe('checkWinner', () => {
     it('should return null for an empty board', () => {
@@ -69,12 +69,33 @@ describe('checkDraw', () => {
     });
 
     it('should return false for a full board with a winner', () => {
-        // X wins on first row, but board is full
         const board: Board = [
             'X', 'X', 'X',
             'O', 'O', 'X',
             'O', 'X', 'O'
         ];
         expect(checkDraw(board)).toBe(false);
+    });
+});
+
+describe('getAvailableMoves', () => {
+    it('should return all indices for an empty board', () => {
+        const board: Board = Array(9).fill(null);
+        expect(getAvailableMoves(board)).toEqual([0, 1, 2, 3, 4, 5, 6, 7, 8]);
+    });
+
+    it('should return empty array for full board', () => {
+        const board: Board = Array(9).fill('X');
+        expect(getAvailableMoves(board)).toEqual([]);
+    });
+
+    it('should return correct indices for partial board', () => {
+        const board: Board = [
+            'X', null, 'O',
+            null, 'X', null,
+            'O', null, 'X'
+        ];
+        // Indices 1, 3, 5, 7 are null
+        expect(getAvailableMoves(board)).toEqual([1, 3, 5, 7]);
     });
 });
