@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { checkWinner, checkDraw, getAvailableMoves, Board } from '../game';
+import { checkWinner, checkDraw, getAvailableMoves, getAIMove, Board } from '../game';
 
 describe('checkWinner', () => {
     it('should return null for an empty board', () => {
@@ -97,5 +97,46 @@ describe('getAvailableMoves', () => {
         ];
         // Indices 1, 3, 5, 7 are null
         expect(getAvailableMoves(board)).toEqual([1, 3, 5, 7]);
+    });
+});
+
+describe('AI Logic', () => {
+    it('Hard AI should block immediate threat', () => {
+        // X has two in a row, O should block
+        const board: Board = [
+            'X', 'X', null,
+            null, 'O', null,
+            null, null, null
+        ];
+        // In this board, X is about to win at index 2.
+        // getAIMove(board, 'hard') returns the move index.
+        const move = getAIMove(board, 'hard');
+        expect(move).toBe(2);
+    });
+
+    it('Hard AI should take winning move', () => {
+        // O has two in a row, should take the win
+        const board: Board = [
+            'O', 'O', null,
+            'X', 'X', null,
+            null, null, null
+        ];
+        // O wins at 2
+        const move = getAIMove(board, 'hard');
+        expect(move).toBe(2);
+    });
+
+    it('Easy AI should return a valid move', () => {
+        const board: Board = Array(9).fill(null);
+        const move = getAIMove(board, 'easy');
+        expect(move).toBeGreaterThanOrEqual(0);
+        expect(move).toBeLessThan(9);
+    });
+
+    it('Medium AI should return a valid move', () => {
+        const board: Board = Array(9).fill(null);
+        const move = getAIMove(board, 'medium');
+        expect(move).toBeGreaterThanOrEqual(0);
+        expect(move).toBeLessThan(9);
     });
 });
